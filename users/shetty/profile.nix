@@ -88,6 +88,7 @@
     figlet.enable = true;
     lolcat.enable = true;
     poppler-utils.enable = true;
+    ripgrep.enable = true;
     cryptsetup.enable = true;
 
     nmap.enable = true;

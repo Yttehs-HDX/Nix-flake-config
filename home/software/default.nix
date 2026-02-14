@@ -47,6 +47,7 @@
     ./pipes-rs
     ./poppler-utils
     ./qq
+    ./ripgrep
     ./scrcpy
     ./tgpt
     ./tldr
