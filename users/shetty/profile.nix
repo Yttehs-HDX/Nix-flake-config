@@ -53,7 +53,6 @@
     eza.enable = true;
     fzf.enable = true;
     direnv.enable = true;
-    command-not-found.enable = true;
     copilot-cli.enable = true;
     tmux.enable = true;
     git.enable = true;
@@ -68,6 +67,7 @@
     obs-studio.enable = true;
     neovim.enable = true;
     net-tools.enable = true;
+    nix-index.enable = true;
     file.enable = true;
 
     bat.enable = true;

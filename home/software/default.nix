@@ -40,6 +40,7 @@
     ./nixfmt-classic
     ./neovim
     ./net-tools
+    ./nix-index
     ./nmap
     ./obs-studio
     ./onlyoffice
