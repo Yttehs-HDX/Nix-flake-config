@@ -7,6 +7,7 @@
     ./bluetooth
     ./firewall
     ./grub
+    ./linux-latest
     ./locale
     ./networking
     ./nix-ld
