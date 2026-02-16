@@ -30,6 +30,8 @@
     nvidia.enable = true;
     refind.enable = true;
     asusctl.enable = true;
+    rog-control-center.enable = true;
+    supergfxctl.enable = true;
     tlp.enable = true;
     waydroid.enable = true;
     zram.enable = true;

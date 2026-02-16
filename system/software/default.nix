@@ -12,6 +12,8 @@
     ./nix-ld
     ./nvidia
     ./refind
+    ./rog-control-center
+    ./supergfxctl
     ./tlp
     ./waydroid
     ./zram
