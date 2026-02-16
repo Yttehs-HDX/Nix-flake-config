@@ -11,13 +11,17 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  boot.kernelParams = [ "nvidia-drm.modeset=1" "nvidia_drm.fbdev=1" ];
-
   hardware.nvidia = {
     open = false;
-    nvidiaSettings = true;
-    powerManagement.enable = true;
+
     modesetting.enable = true;
+    nvidiaSettings = true;
+
+    powerManagement = {
+      enable = true;
+      finegrained = true;
+    };
+
     prime = {
       offload = {
         enable = true;
