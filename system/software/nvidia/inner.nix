@@ -1,26 +1,21 @@
 { lib, pkgs, ... }:
 
-let videoDrivers = [ "nvidia" ];
-in {
+{
   nixpkgs.config = {
     nvidia.acceptLicense = true;
     cudaSupport = true;
     allowUnfreePredicate = pkg:
       let name = lib.getName pkg;
-      in lib.hasPrefix "cuda" name
-      || builtins.elem name [ "nvidia-x11" "nvidia-settings" ];
+      in lib.hasPrefix "cuda" name || lib.hasPrefix "nvidia" name;
   };
 
-  services.xserver.videoDrivers = videoDrivers;
+  services.xserver.videoDrivers = [ "nvidia" ];
 
-  boot.kernelParams = lib.optionals (lib.elem "nvidia" videoDrivers) [
-    "nvidia-drm.modeset=1"
-    "nvidia_drm.fbdev=1"
-  ];
+  boot.kernelParams = [ "nvidia-drm.modeset=1" "nvidia_drm.fbdev=1" ];
 
   hardware.nvidia = {
     open = false;
-    nvidiaSettings = false;
+    nvidiaSettings = true;
     powerManagement.enable = true;
     modesetting.enable = true;
     prime = {
