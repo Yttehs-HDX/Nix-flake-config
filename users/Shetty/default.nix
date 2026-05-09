@@ -83,6 +83,7 @@
     noto-fonts-emoji-blob-bin = { };
     obs-studio = { };
     obsidian = { };
+    ollama = { };
     onlyoffice = { };
     osu-lazer-bin = { };
     pipes-rs = { };
