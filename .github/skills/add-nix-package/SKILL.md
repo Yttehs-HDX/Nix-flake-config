@@ -22,20 +22,106 @@ Use these to look up package availability, options, and NUR packages:
 - NixOS options: https://search.nixos.org/options
 - NUR packages: https://nur.nix-community.org/
 - nix-darwin options: https://nix-darwin.github.io/nix-darwin/manual/
+- MyNixOS search: https://mynixos.com/
+
+## Optional: MCP NixOS Tools (Advanced)
+
+**⚠️ Requires separate installation and MCP client configuration.**
+
+If you have [mcp-nixos](https://github.com/utensils/mcp-nixos) configured in your AI client, you can use programmatic queries:
+
+### Installation (choose one):
+
+```bash
+# Option 1: uvx (recommended)
+uvx mcp-nixos
+
+# Option 2: Nix
+nix run github:utensils/mcp-nixos
+
+# Option 3: pip
+pip install mcp-nixos
+```
+
+### Configuration
+
+Add to your MCP client config (e.g., Claude Desktop, Cursor):
+
+```json
+{
+  "mcpServers": {
+    "nixos": {
+      "command": "uvx",
+      "args": ["mcp-nixos"]
+    }
+  }
+}
+```
+
+### Available Tools (when configured):
+
+**`nix(action, query, source, type, channel, limit)`**
+
+```python
+# Search packages
+nix(action="search", query="ripgrep", source="nixos")
+
+# Get detailed info
+nix(action="info", query="neovim", source="nixos")
+
+# Check Home Manager options
+nix(action="search", query="git", source="home-manager", type="programs")
+
+# Check NixOS options
+nix(action="search", query="docker", source="nixos", type="options")
+
+# Browse options by prefix
+nix(action="options", source="home-manager", query="programs.git")
+```
+
+**`nix_versions(package, version, limit)`**
+
+```python
+# Check versions and platform support
+nix_versions(package="python", limit=5)
+
+# Find specific version
+nix_versions(package="nodejs", version="20.0.0")
+```
+
+**Sources:** nixos (130K+ pkgs), home-manager (5K+ opts), darwin (1K+ opts), nixhub, noogle (2K+ fns)
 
 ## Procedure
 
 ### Step 1 — Research the Package
 
-1. Search the reference links above to determine:
+Use the reference links above to determine:
+
+1. **Search for the package:**
+   - Go to https://search.nixos.org/packages or https://mynixos.com/
+   - Search for the package name (e.g., "ollama", "ripgrep")
+   - Verify it exists in nixpkgs
+
+2. **Check for dedicated options:**
+   - **Home Manager:** https://home-manager-options.extranix.com/ or https://mynixos.com/home-manager/options
+     - Look for `programs.<name>.*` or `services.<name>.*`
+   - **NixOS:** https://search.nixos.org/options or https://mynixos.com/nixos/options
+     - Look for `services.<name>.*`, `hardware.<name>.*`, etc.
+   - **nix-darwin:** https://nix-darwin.github.io/nix-darwin/manual/ or https://mynixos.com/nix-darwin/options
+     - Look for system-level darwin options
+
+3. **Extract information:**
    - Whether the package exists in nixpkgs (`pkgs.<name>`)
    - Whether home-manager has dedicated options (`programs.<name>`, `services.<name>`)
    - Whether nixos has dedicated options (`services.<name>`, `hardware.<name>`, etc.)
    - Whether nix-darwin has dedicated options
-2. Determine the **owner** — who should declare this package:
+   - Platform support (check package metadata for supported systems)
+
+4. **Determine the owner** — who should declare this package:
    - `user`: user-level tools, programs, GUI apps, shells, editors (most packages)
    - `host`: system services, hardware drivers, virtualization, networking, firewalls
-3. Determine the **platform scope**:
+
+5. **Determine the platform scope:**
    - Cross-platform (Linux + macOS): works everywhere
    - Linux-only desktop: requires Linux + desktop capability (Wayland/X11 tools)
    - Linux-only system: NixOS system-level only (drivers, system services)
@@ -285,3 +371,92 @@ preset:   darwinHintManual "gui"
 backends: all three → home = ./home.nix
 home.nix: home.packages = [ pkgs.<name> ];
 ```
+
+## Complete Example: Adding a Package
+
+**Scenario:** User wants to add `ollama` (LLM tool).
+
+### Step-by-step Research:
+
+1. **Search on https://search.nixos.org/packages?query=ollama**
+   - Result: `pkgs.ollama` exists (LLM inference server)
+   - Available on: x86_64-linux, aarch64-linux, x86_64-darwin, aarch64-darwin
+
+2. **Check NixOS options at https://mynixos.com/nixos/options?search=ollama**
+   - Found: `services.ollama.enable` - NixOS service for Ollama
+   - Options: `acceleration` (cuda/rocm/vulkan), `models`, `environmentVariables`
+
+3. **Check Home Manager at https://mynixos.com/home-manager/options?search=ollama**
+   - No dedicated `programs.ollama` or `services.ollama` options
+
+4. **Decision matrix:**
+   - Owner: **host** (system service that runs as daemon)
+   - Platform: **cross-platform** (Linux + macOS)
+   - NixOS has service options: yes (`services.ollama`)
+   - Home Manager options: no (use raw package)
+   - Kind: **"service"**
+   - → Preset: **`crossPlatformSystemHost "service"`**
+
+### Implementation:
+
+**Create:** `modules/packages/ollama/default.nix`
+```nix
+{ lib }:
+let presets = import ../../package-governance/presets.nix;
+in {
+  packageId = "ollama";
+  metadata = presets.crossPlatformSystemHost "service";
+  backends = {
+    home-manager = {
+      home = ./home.nix;
+      system = null;
+    };
+    nixos = {
+      home = null;
+      system = ./nixos.nix;
+    };
+    nix-darwin = {
+      home = ./home.nix;
+      system = null;
+    };
+  };
+}
+```
+
+**Create:** `modules/packages/ollama/nixos.nix`
+```nix
+{ ... }:
+{ ... }: {
+  services.ollama.enable = true;
+}
+```
+
+**Create:** `modules/packages/ollama/home.nix`
+```nix
+# Fallback for non-NixOS systems (macOS/standalone home-manager)
+{ ... }:
+{ pkgs, ... }: {
+  home.packages = [ pkgs.ollama ];
+}
+```
+
+**Register in:** `tests/package-definitions.nix`
+```nix
+migratedSystemPackages = [
+  # ... existing packages
+  "ollama"
+];
+
+# In assertDefinitionsExist:
+assert builtins.hasAttr "ollama" packageDefinitions;
+```
+
+**Validate:**
+```bash
+nix flake check path:$PWD
+```
+
+**Notes:**
+- NixOS uses `services.ollama` (native service)
+- macOS/home-manager uses raw package (no service integration)
+- Settings can be passed via `definition.settings` if needed (e.g., acceleration mode)
