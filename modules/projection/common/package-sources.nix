@@ -10,6 +10,7 @@ let
     mikusays = inputs.nur.legacyPackages.${system}.repos.zerozawa.mikusays;
     obsidian = unstablePkgs.obsidian;
     vscode = unstablePkgs.vscode;
+    claude-code = unstablePkgs.claude-code;
   };
 in {
   inherit system unstablePkgs homeCustomSources;

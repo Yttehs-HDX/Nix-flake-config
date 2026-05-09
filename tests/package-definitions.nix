@@ -43,6 +43,7 @@ let
     "nixfmt-classic"
     "nixvim"
     "nmap"
+    "nodejs"
     "noto-fonts"
     "noto-fonts-cjk-sans"
     "noto-fonts-cjk-serif"
@@ -51,6 +52,7 @@ let
     "poppler-utils"
     "ripgrep"
     "scrcpy"
+    "taplo"
     "tesseract"
     "tgpt"
     "tldr"
@@ -154,6 +156,8 @@ let
     assert builtins.hasAttr "docker" packageDefinitions;
     assert builtins.hasAttr "sddm" packageDefinitions;
     assert builtins.hasAttr "nvidia" packageDefinitions;
+    assert builtins.hasAttr "nodejs" packageDefinitions;
+    assert builtins.hasAttr "taplo" packageDefinitions;
     assert builtins.hasAttr "zsh" packageDefinitions;
     assert builtins.hasAttr "hyprland" packageDefinitions;
     true;
