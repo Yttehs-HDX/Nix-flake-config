@@ -103,6 +103,7 @@ let
     "krita"
     "obs-studio"
     "obsidian"
+    "openclaw"
     "onlyoffice"
     "osu-lazer-bin"
     "qq"
@@ -157,6 +158,7 @@ let
     assert builtins.hasAttr "sddm" packageDefinitions;
     assert builtins.hasAttr "nvidia" packageDefinitions;
     assert builtins.hasAttr "nodejs" packageDefinitions;
+    assert builtins.hasAttr "openclaw" packageDefinitions;
     assert builtins.hasAttr "taplo" packageDefinitions;
     assert builtins.hasAttr "zsh" packageDefinitions;
     assert builtins.hasAttr "hyprland" packageDefinitions;

@@ -37,10 +37,11 @@
 | [nixvim](https://github.com/nix-community/nixvim) | Flake 输入 / Home Manager 模块 | `flake.nix`, `modules/packages/nixvim/home.nix` | 引入 `nixvim` 的 Home Manager 模块，以声明式方式配置 Neovim。 |
 | [NUR](https://github.com/nix-community/NUR) | Flake 输入 / 包来源 | `flake.nix`, `modules/projection/common/package-sources.nix`, `modules/packages/mikusays/home.nix` | 提供第三方包来源（例如 `mikusays`）。 |
 | [Hexecute](https://github.com/ThatOtherAndrew/Hexecute) | Flake 输入 / 包来源 | `flake.nix`, `modules/projection/common/package-sources.nix`, `modules/packages/hexecute/home.nix` | 提供第三方包来源（`hexecute`）。 |
+| [nix-openclaw](https://github.com/openclaw/nix-openclaw) | Flake 输入 / Home Manager 模块 + 包来源 | `flake.nix`, `modules/projection/common/package-sources.nix`, `modules/packages/openclaw/home.nix` | 提供 `openclaw` 的 Home Manager 模块（`programs.openclaw`）及包来源，安装 OpenClaw 并管理 `openclaw-gateway` systemd 用户服务。 |
 
 说明：
 - 这里的“Nix 模块”指通过 `imports = [ ... ]` 导入的条目。
-- 在当前仓库中，直接导入的第三方模块主要来自 `home-manager` 与 `nixvim`；`NUR` 和 `Hexecute` 作为包来源使用。
+- 在当前仓库中，直接导入的第三方模块主要来自 `home-manager`、`nixvim` 与 `nix-openclaw`；`NUR` 和 `Hexecute` 仅作为包来源使用。
 
 ## 致谢
 部分配置基于 [Sly-Harvey/NixOS](https://github.com/Sly-Harvey/NixOS)。

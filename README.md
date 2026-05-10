@@ -37,10 +37,11 @@ Start here for architecture and design details:
 | [nixvim](https://github.com/nix-community/nixvim) | Flake input / Home Manager module | `flake.nix`, `modules/packages/nixvim/home.nix` | Imports `nixvim` Home Manager module to declare Neovim configuration declaratively. |
 | [NUR](https://github.com/nix-community/NUR) | Flake input / package source | `flake.nix`, `modules/projection/common/package-sources.nix`, `modules/packages/mikusays/home.nix` | Provides third-party package source (for example `mikusays`). |
 | [Hexecute](https://github.com/ThatOtherAndrew/Hexecute) | Flake input / package source | `flake.nix`, `modules/projection/common/package-sources.nix`, `modules/packages/hexecute/home.nix` | Provides third-party package source (`hexecute`). |
+| [nix-openclaw](https://github.com/openclaw/nix-openclaw) | Flake input / Home Manager module + package source | `flake.nix`, `modules/projection/common/package-sources.nix`, `modules/packages/openclaw/home.nix` | Provides the `openclaw` Home Manager module (`programs.openclaw`) and package source. Installs OpenClaw and manages the `openclaw-gateway` systemd user service. |
 
 Notes:
 - "Nix module" here means entries imported through `imports = [ ... ]`.
-- In this repository, direct third-party module imports are currently from `home-manager` and `nixvim`; `NUR` and `Hexecute` are used as package sources.
+- In this repository, direct third-party module imports are currently from `home-manager`, `nixvim`, and `nix-openclaw`; `NUR` and `Hexecute` are used as package sources only.
 
 ## Acknowledgements
 Some configurations are based on [Sly-Harvey/NixOS](https://github.com/Sly-Harvey/NixOS).

@@ -13,11 +13,14 @@ let
   };
 in assert packageSources.homeCustomSources.hexecute
   == inputs.hexecute.packages.${system}.default;
+assert packageSources.homeCustomSources.openclaw
+  == inputs.openclaw.packages.${system}.default;
 assert packageSources.homeCustomSources.mikusays
   == inputs.nur.legacyPackages.${system}.repos.zerozawa.mikusays;
 assert packageSources.homeCustomSources.vscode == unstablePkgs.vscode;
 assert packageSources.homeCustomSources.obsidian == unstablePkgs.obsidian;
 assert packageSources.hasCustomSource "hexecute";
+assert packageSources.hasCustomSource "openclaw";
 assert packageSources.hasCustomSource "mikusays";
 assert packageSources.hasCustomSource "obsidian";
 assert packageSources.hasCustomSource "vscode";

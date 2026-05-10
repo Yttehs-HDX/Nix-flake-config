@@ -84,6 +84,7 @@
     obs-studio = { };
     obsidian = { };
     ollama = { };
+    openclaw = { };
     onlyoffice = { };
     osu-lazer-bin = { };
     pipes-rs = { };
