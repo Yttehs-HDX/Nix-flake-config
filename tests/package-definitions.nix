@@ -58,6 +58,7 @@ let
     "tldr"
     "tmux"
     "translate-shell"
+    "unimatrix"
     "unrar"
     "unzip"
     "vlc"
@@ -160,6 +161,7 @@ let
     assert builtins.hasAttr "nodejs" packageDefinitions;
     assert builtins.hasAttr "openclaw" packageDefinitions;
     assert builtins.hasAttr "taplo" packageDefinitions;
+    assert builtins.hasAttr "unimatrix" packageDefinitions;
     assert builtins.hasAttr "zsh" packageDefinitions;
     assert builtins.hasAttr "hyprland" packageDefinitions;
     true;

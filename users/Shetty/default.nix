@@ -110,6 +110,7 @@
     translate-shell = { };
     udisks2 = { };
     universal-android-debloater = { };
+    unimatrix = { };
     unrar = { };
     unzip = { };
     vlc = { };
