@@ -26,6 +26,7 @@
     android-tools = { };
     asciiquarium = { };
     bat = { };
+    brightnessctl = { };
     btop = { };
     cava = { };
     cbonsai = { };
