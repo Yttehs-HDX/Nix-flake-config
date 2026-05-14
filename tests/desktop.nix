@@ -283,8 +283,12 @@ assert linuxHome.config.programs.waybar.settings.main.modules-left
   == [ "group/hyprland" "cava" ];
 assert linuxHome.config.programs.waybar.settings.main.modules-center
   == [ "group/misc" ];
-assert linuxHome.config.programs.waybar.settings.main."group/menu".modules
-  == [ "battery" "tray" ];
+assert linuxHome.config.programs.waybar.settings.main.modules-right
+  == [ "group/monitor" "group/connection" "group/quick" "group/power" ];
+assert linuxHome.config.programs.waybar.settings.main."group/quick".modules
+  == [ "tray" ];
+assert linuxHome.config.programs.waybar.settings.main."group/power".modules
+  == [ "idle_inhibitor" "battery" ];
 assert !(builtins.hasAttr "custom/hexecute"
   linuxHome.config.programs.waybar.settings.main);
 assert linuxHome.config.programs.waybar.settings.main.battery.on-click
@@ -360,8 +364,10 @@ assert linuxUnthemedHome.config.wayland.windowManager.hyprland.settings.plugin.h
   == "rgba(1e1e2ecc)";
 assert linuxUnthemedHome.config.programs.swaylock.enable;
 assert linuxUnthemedHome.config.programs.swaylock.settings == { };
-assert linuxCustomMenuHome.config.programs.waybar.settings.main."group/menu".modules
-  == [ "battery" "tray" "custom/hexecute" ];
+assert linuxCustomMenuHome.config.programs.waybar.settings.main."group/quick".modules
+  == [ "custom/hexecute" "tray" ];
+assert linuxCustomMenuHome.config.programs.waybar.settings.main."group/power".modules
+  == [ "idle_inhibitor" "battery" ];
 assert linuxCustomMenuHome.config.programs.waybar.settings.main."custom/hexecute".on-click
   == "show-menu";
 assert !(builtins.hasAttr "on-click"

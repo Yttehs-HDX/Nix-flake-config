@@ -37,20 +37,21 @@ in {
       layer = "top";
       position = "top";
       mode = "dock";
-      height = 32;
+      height = 38;
       exclusive = true;
       passthrough = false;
       gtk-layer-shell = true;
       ipc = true;
       fixed-center = true;
       margin-top = 5;
-      margin-left = 5;
-      margin-right = 5;
-      margin-bottom = 0;
+      margin-left = 3;
+      margin-right = 3;
+      margin-bottom = 2;
 
       modules-left = [ "group/hyprland" "cava" ];
       modules-center = [ "group/misc" ];
-      modules-right = [ "group/monitor" "group/connection" "group/menu" ];
+      modules-right =
+        [ "group/monitor" "group/connection" "group/quick" "group/power" ];
 
       "group/hyprland" = {
         orientation = "horizontal";
@@ -82,6 +83,17 @@ in {
         format = "{class}";
         icon = true;
         icon-size = 15;
+      };
+
+      cava = {
+        hide_on_silence = true;
+        framerate = 60;
+        bars = 8;
+        format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+        input_delay = 1;
+        sleep_timer = 5;
+        bar_delimiter = 0;
+        on-click = playPauseCmd;
       };
 
       "group/misc" = {
@@ -187,19 +199,32 @@ in {
           "{device_alias}	{device_battery_percentage}%";
       };
 
-      "group/menu" = {
+      "group/quick" = {
         orientation = "inherit";
         drawer = {
           transition-duration = 300;
           transition-left-to-right = false;
         };
-        modules = [ "battery" "tray" ]
-          ++ lib.optionals (menuCmd != null) [ "custom/hexecute" ];
+        modules = lib.optionals (menuCmd != null) [ "custom/hexecute" ]
+          ++ [ "tray" ];
       };
 
       tray = {
         icon-size = 15;
-        spacing = 10;
+        spacing = 6;
+      };
+
+      "group/power" = {
+        orientation = "inherit";
+        modules = [ "idle_inhibitor" "battery" ];
+      };
+
+      idle_inhibitor = {
+        format = "{icon}";
+        format-icons = {
+          activated = " ";
+          deactivated = "󰤄";
+        };
       };
 
       battery = {
@@ -208,22 +233,12 @@ in {
           warning = 30;
           critical = 15;
         };
-        format = "{icon}  {capacity}";
+        format = "{icon} {capacity}";
         format-icons = [ "󰁺" "󰁻" "󰁼" "󰁾" "󰁿" "󰂀" "󰂁" "󰂁" "󰂂" "󰁹" ];
       } // lib.optionalAttrs (toggleNotificationCmd != null) {
         on-click = toggleNotificationCmd;
       };
 
-      cava = {
-        hide_on_silence = true;
-        framerate = 60;
-        bars = 8;
-        format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
-        input_delay = 1;
-        sleep_timer = 5;
-        bar_delimiter = 0;
-        on-click = playPauseCmd;
-      };
     } // lib.optionalAttrs (menuCmd != null) {
       "custom/hexecute" = {
         format = " ";
@@ -275,148 +290,112 @@ in {
         color: @text;
       }
 
+      /*
+       * Layout rhythm (horizontal coordinates):
+       *   bar edge --[bar margin 5px]-- group edge
+       *   group edge --[0.55rem padding]-- first item left-padding (0.35rem) -- text
+       *   text --[0.35rem]-- gap --[0.35rem]-- next text          (item-to-item = 0.7rem)
+       *   group A --[0.2rem]-- gap --[0.2rem]-- group B           (group-to-group = 0.4rem)
+       *
+       * All groups share the same shell metrics; all leaf modules share the
+       * same inner metrics. Per-group / per-module rules only override colors.
+       */
+
+      /* shared container shell */
       #hyprland,
       #cava,
       #misc,
       #monitor,
       #connection,
-      #menu {
-        border: 2px solid;
-        border-color: @lavender;
-        border-radius: 1rem;
+      #quick,
+      #power {
+        border: 2px solid @lavender;
         background-color: @surface0-alpha;
-        padding: 0.5rem 0.7rem;
-        margin: 0rem;
+        padding: 0.25rem 0.55rem;
+        margin: 0 0.15rem;
       }
 
-      #hyprland {
-        border-color: @sky;
-        padding: 0.5rem 0rem 0.5rem 0.5rem;
+      /* group border radius: round-corner square */
+      #hyprland,
+      #connection,
+      #power {
+        border-radius: 0.95rem;
       }
 
+      /* group border radius: pill shape */
+      #cava,
+      #misc,
+      #monitor,
+      #quick {
+        border-radius: 5rem;
+      }
+
+      /* group border accents */
+      #hyprland   { border-color: @sky; }
+      #cava       { border-color: @pink;   color: @maroon; }
+      #misc       { border-color: @blue; }
+      #monitor    { border-color: @yellow; }
+      #connection { border-color: @lavender; }
+      #quick      { border-color: @blue; }
+      #power      { border-color: @green; }
+
+      /* shared leaf-module metrics: symmetric padding, no margin.
+         Adjacent siblings get a 0.7rem visual gap (0.35rem + 0.35rem). */
       #workspaces,
-      #window {
-        padding: 0rem 0rem;
+      #clock,
+      #custom-lyric,
+      #cpu,
+      #memory,
+      #backlight,
+      #pulseaudio,
+      #network,
+      #bluetooth,
+      #custom-hexecute,
+      #tray,
+      #idle_inhibitor,
+      #battery {
+        padding: 0 0.35rem;
+        margin: 0;
       }
 
+      /* leaf-module accent colors */
+      #clock           { color: @blue; }
+      #custom-lyric    { color: @text; }
+      #cpu             { color: @peach; }
+      #memory          { color: @teal; }
+      #backlight       { color: @yellow; }
+      #pulseaudio      { color: @maroon; }
+      #network         { color: @lavender; }
+      #bluetooth       { color: @mauve; }
+      #custom-hexecute { color: @blue; }
+      #idle_inhibitor  { color: @teal; }
+      #battery         { color: @green; }
+
+      /* workspaces buttons: pill shape, symmetric padding,
+         no margin so the parent #workspaces rhythm controls outer spacing. */
+      #workspaces {
+        padding: 0 0.15rem;
+      }
       #workspaces button {
         background: @surface1;
         color: @lavender;
         border-radius: 1rem;
-        padding: 0rem 0.3rem;
-        margin: 0rem 0.3rem;
+        padding: 0 0.3rem;
+        margin: 0 0.15rem;
+        min-width: 0;
       }
-
       #workspaces button.active,
       #workspaces button:hover {
         background: @sky;
         color: @surface1;
       }
-
       #window {
-        margin: 0rem 0.4rem 0rem 0.1rem;
+        padding: 0 0rem;
+        margin: 0;
       }
 
-      #cava {
-        border-color: @pink;
-        color: @pink;
-        margin: 0rem 0rem 0rem 0.3rem;
-      }
-
-      #misc {
-        border-color: @blue;
-      }
-
-      #clock,
-      #custom-lyric {
-        margin: 0rem 0rem 0rem 0.7rem;
-      }
-
-      #clock {
-        color: @blue;
-        margin: 0rem;
-      }
-
-      #custom-lyric {
-        color: @text;
-      }
-
-      #monitor,
-      #connection {
-        padding: 0.5rem 0.7rem;
-        margin: 0rem 0.3rem 0rem 0rem;
-      }
-
-      #monitor {
-        border-color: @yellow;
-      }
-
-      #cpu,
-      #memory,
-      #backlight,
-      #pulseaudio {
-        margin: 0rem 0.7rem 0rem 0rem;
-      }
-
-      #cpu {
-        color: @peach;
-      }
-
-      #memory {
-        color: @teal;
-      }
-
-      #backlight {
-        color: @yellow;
-      }
-
-      #pulseaudio {
-        color: @maroon;
-        margin: 0rem;
-      }
-
-      #connection {
-        border-color: @lavender;
-      }
-
-      #network,
-      #bluetooth {
-        margin: 0rem 0.7rem 0rem 0rem;
-      }
-
-      #network {
-        color: @lavender;
-      }
-
-      #bluetooth {
-        margin: 0rem;
-        color: @mauve;
-      }
-
-      #menu {
-        border-color: @green;
-      }
-
-      #tray,
-      #custom-hexecute {
-        margin: 0rem 1rem 0rem 0rem;
-      }
-
-      #custom-hexecute {
-        color: @green;
-      }
-
-      #battery {
-        color: @green;
-      }
-
-      #battery.charging {
-        color: @green;
-      }
-
-      #battery.warning:not(.charging) {
-        color: @red;
-      }
+      #battery.charging               { color: @green; }
+      #battery.warning:not(.charging) { color: @red; }
     '';
   };
 }
