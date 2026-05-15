@@ -312,14 +312,14 @@ in {
         border: 2px solid @lavender;
         background-color: @surface0-alpha;
         padding: 0.25rem 0.55rem;
-        margin: 0 0.15rem;
+        margin: 0 0.1rem;
       }
 
       /* group border radius: round-corner square */
       #hyprland,
       #connection,
       #power {
-        border-radius: 0.95rem;
+        border-radius: 0.9rem;
       }
 
       /* group border radius: pill shape */
