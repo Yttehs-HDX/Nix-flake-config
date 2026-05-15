@@ -23,6 +23,7 @@ let
     "eza"
     "fastfetch"
     "figlet"
+    "ffmpeg"
     "file"
     "fzf"
     "gh"
@@ -164,6 +165,7 @@ let
     assert builtins.hasAttr "unimatrix" packageDefinitions;
     assert builtins.hasAttr "zsh" packageDefinitions;
     assert builtins.hasAttr "hyprland" packageDefinitions;
+    assert builtins.hasAttr "ffmpeg" packageDefinitions;
     true;
 
   # Test: Migrated cross-platform user packages share consistent metadata

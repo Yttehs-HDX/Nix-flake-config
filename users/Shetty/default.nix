@@ -48,6 +48,7 @@
     fcitx5 = { };
     figlet = { };
     file = { };
+    ffmpeg = { };
     fzf = { };
     gh = { };
     git = { };
