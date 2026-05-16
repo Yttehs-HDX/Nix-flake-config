@@ -1,17 +1,35 @@
 { ... }:
-{ lib, pkgs, inputs, ... }:
-let system = pkgs.stdenv.hostPlatform.system;
+{ config, lib, pkgs, inputs, ... }:
+let
+  system = pkgs.stdenv.hostPlatform.system;
+  openclaw = inputs.openclaw.packages.${system}.openclaw;
+  homeDir = config.home.homeDirectory;
 in {
-  imports = [ inputs.openclaw.homeManagerModules.openclaw ];
+  home.packages = [ openclaw ];
 
-  programs.openclaw = {
-    enable = true;
-    package = inputs.openclaw.packages.${system}.openclaw;
+  home.activation.openclawPrepareDirs =
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      mkdir -p "${homeDir}/.openclaw"
+      mkdir -p "${homeDir}/.openclaw/workspace"
+      mkdir -p "/tmp/openclaw"
+    '';
+
+  systemd.user.services.openclaw-gateway = {
+    Unit = {
+      Description = "OpenClaw gateway";
+      After = [ "network-online.target" ];
+    };
+    Service = {
+      ExecStart = "${openclaw}/bin/openclaw gateway --port 18789";
+      WorkingDirectory = "${homeDir}/.openclaw";
+      Restart = "always";
+      RestartSec = "1s";
+      Environment = [
+        "HOME=${homeDir}"
+        "OPENCLAW_STATE_DIR=${homeDir}/.openclaw"
+        "OPENCLAW_CONFIG_PATH=${homeDir}/.openclaw/openclaw.json"
+      ];
+    };
+    Install.WantedBy = [ "default.target" ];
   };
-
-  # Keep user-managed OpenClaw settings across reboot/home-manager activation.
-  home.file.".openclaw/openclaw.json".enable = lib.mkForce false;
-
-  systemd.user.services.openclaw-gateway.Install.WantedBy =
-    [ "default.target" ];
 }
