@@ -65,6 +65,7 @@
     jq = { };
     jetbrains-toolbox = { };
     kdeconnect = { };
+    keepassxc = { };
     krita = { };
     lazydocker = { };
     lazygit = { };
