@@ -84,7 +84,7 @@
     noto-fonts-cjk-serif = { };
     noto-fonts-emoji-blob-bin = { };
     obs-studio = { };
-    obsidian = { };
+    obsidian = { settings = { passwordStore = "gnome-libsecret"; }; };
     ollama = { };
     openclaw = { };
     onlyoffice = { };
