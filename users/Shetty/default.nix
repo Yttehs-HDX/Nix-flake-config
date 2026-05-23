@@ -26,6 +26,7 @@
     android-tools = { };
     asciiquarium = { };
     bat = { };
+    brightnessctl = { };
     btop = { };
     cava = { };
     cbonsai = { };
@@ -47,6 +48,7 @@
     fcitx5 = { };
     figlet = { };
     file = { };
+    ffmpeg = { };
     fzf = { };
     gh = { };
     git = { };
@@ -84,6 +86,7 @@
     obs-studio = { };
     obsidian = { };
     ollama = { };
+    openclaw = { };
     onlyoffice = { };
     osu-lazer-bin = { };
     pipes-rs = { };
@@ -109,6 +112,7 @@
     translate-shell = { };
     udisks2 = { };
     universal-android-debloater = { };
+    unimatrix = { };
     unrar = { };
     unzip = { };
     vlc = { };

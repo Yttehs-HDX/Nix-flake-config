@@ -23,6 +23,7 @@ let
     "eza"
     "fastfetch"
     "figlet"
+    "ffmpeg"
     "file"
     "fzf"
     "gh"
@@ -58,6 +59,7 @@ let
     "tldr"
     "tmux"
     "translate-shell"
+    "unimatrix"
     "unrar"
     "unzip"
     "vlc"
@@ -103,6 +105,7 @@ let
     "krita"
     "obs-studio"
     "obsidian"
+    "openclaw"
     "onlyoffice"
     "osu-lazer-bin"
     "qq"
@@ -157,9 +160,12 @@ let
     assert builtins.hasAttr "sddm" packageDefinitions;
     assert builtins.hasAttr "nvidia" packageDefinitions;
     assert builtins.hasAttr "nodejs" packageDefinitions;
+    assert builtins.hasAttr "openclaw" packageDefinitions;
     assert builtins.hasAttr "taplo" packageDefinitions;
+    assert builtins.hasAttr "unimatrix" packageDefinitions;
     assert builtins.hasAttr "zsh" packageDefinitions;
     assert builtins.hasAttr "hyprland" packageDefinitions;
+    assert builtins.hasAttr "ffmpeg" packageDefinitions;
     true;
 
   # Test: Migrated cross-platform user packages share consistent metadata
