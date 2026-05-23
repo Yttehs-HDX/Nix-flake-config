@@ -6,7 +6,6 @@
 # This file is pure data — no function arguments, no lib dependency.
 {
   # --- Host kinds ---
-  # Each value identifies a class of host backend.
   hostKinds = {
     nixos = "nixos";
     darwin = "darwin";
@@ -16,7 +15,6 @@
   allHostKinds = [ "nixos" "darwin" "standaloneHomeManager" ];
 
   # --- Deployment targets (hostKind × scope) ---
-  # A target encodes both the host kind and the deployment scope.
   targets = {
     nixosHome = "nixosHome";
     nixosSystem = "nixosSystem";
@@ -46,15 +44,11 @@
     host = "host";
   };
 
-  # Classifies how consumers should treat a package that is declared
-  # but not supported on the current target. This taxonomy is metadata
-  # only; actual reporting/enforcement is implemented by backend modules.
   missingStrategies = {
-    notApplicable = "notApplicable"; # package is always available
-    error =
-      "error"; # unsupported package is reported by consumers; does not itself force evaluation failure
-    skip = "skip"; # silently excluded
-    hintManual = "hintManual"; # excluded with manual-install hint
+    notApplicable = "notApplicable";
+    error = "error";
+    skip = "skip";
+    hintManual = "hintManual";
   };
 
   # --- Backend type → host kind mapping ---
@@ -87,17 +81,19 @@
     else
       throw "Unknown backend/scope combination: ${backend}/${scope}";
 
-  # --- Host kind → home target ---
-  hostKindToHomeTarget = {
-    nixos = "nixosHome";
-    darwin = "darwinHome";
-    standaloneHomeManager = "standaloneHomeManagerHome";
-  };
+  # --- Scope resolution ---
+  hasSystemScope = backendType:
+    backendType == "nixos" || backendType == "nix-darwin";
 
-  # --- Host kind → system target ---
-  hostKindToSystemTarget = {
-    nixos = "nixosSystem";
-    darwin = "darwinSystem";
-    standaloneHomeManager = "standaloneHomeManagerSystem";
-  };
+  hasHomeScope = backendType:
+    backendType == "nixos" || backendType == "home-manager" || backendType
+    == "nix-darwin";
+
+  backendPlatformMatches = backendType: platformSystem:
+    if backendType == "nixos" then
+      builtins.match ".*-linux" platformSystem != null
+    else if backendType == "nix-darwin" then
+      builtins.match ".*-darwin" platformSystem != null
+    else
+      true;
 }

@@ -4,10 +4,9 @@
 # target support checks, and full runtime support resolution.
 #
 # Functions are ordered by understanding flow:
-#   1. Context resolution helpers
-#   2. Metadata lookup
-#   3. Visibility / declaration legality
-#   4. Support checks
+#   1. Metadata lookup
+#   2. Visibility / declaration legality
+#   3. Support checks
 { lib }:
 let
   taxonomy = import ./taxonomy.nix;
@@ -15,45 +14,10 @@ let
     home = import ./catalog/home.nix { inherit lib; };
     system = import ./catalog/system.nix { inherit lib; };
   };
-
-  # ── 1. Context resolution helpers ─────────────────────────────────────
-
-  resolveBackendType = current:
-    if current ? backend then
-      current.backend.type
-    else if current ? current then
-      current.current.backend.type
-    else
-      null;
-
-  resolveHostPlatform = current:
-    if current ? host then
-      current.host.platform.system
-    else if current ? current then
-      current.current.host.platform.system
-    else
-      null;
-
-  resolveDesktopEnabled = scope: current:
-    if scope == "system" then
-      current.host.capabilities.desktop.enable
-    else if current ? effectiveCapabilities then
-      current.effectiveCapabilities.desktop.enable
-    else if current ? current then
-      current.current.effectiveCapabilities.desktop.enable
-    else
-      false;
-
-  resolvePlatformLabel = current:
-    let platformSystem = resolveHostPlatform current;
-    in if platformSystem != null && lib.hasSuffix "-darwin" platformSystem then
-      "darwin"
-    else if platformSystem != null && lib.hasSuffix "-linux" platformSystem then
-      "linux"
-    else if platformSystem == null then
-      "unknown"
-    else
-      platformSystem;
+  resolvers = import ./context-resolvers.nix { inherit lib; };
+  inherit (resolvers)
+    resolveBackendType resolveHostPlatform resolveDesktopEnabled
+    resolvePlatformLabel;
 
   # Restrictive fallback for packages not registered in the queried catalog.
   # Produces a record that blocks the package on the queried scope.

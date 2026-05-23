@@ -6,11 +6,12 @@
 let
   taxonomy = import ./taxonomy.nix;
   rules = import ./rules.nix { inherit lib; };
+  resolvers = import ./context-resolvers.nix { inherit lib; };
 
   unsupportedInfoFor = scope: current: packageId:
     let
       metadata = rules.metadataFor scope packageId;
-      currentBackend = rules.resolveBackendType current;
+      currentBackend = resolvers.resolveBackendType current;
       hostKind = if currentBackend != null then
         taxonomy.backendToHostKind.${currentBackend} or null
       else
@@ -19,14 +20,14 @@ let
         taxonomy.resolveTarget currentBackend scope
       else
         null;
-      platformLabel = rules.resolvePlatformLabel current;
+      platformLabel = resolvers.resolvePlatformLabel current;
 
       unsupportedHostKind = hostKind != null
         && !(builtins.elem hostKind (metadata.allowedHostKinds or [ ]));
       unsupportedTarget = target != null
         && !(builtins.elem target (metadata.allowedTargets or [ ]));
       unmetDesktop = (metadata.requiresDesktop or false)
-        && !(rules.resolveDesktopEnabled scope current);
+        && !(resolvers.resolveDesktopEnabled scope current);
     in if !(unsupportedHostKind || unsupportedTarget || unmetDesktop) then
       null
     else {

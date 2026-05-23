@@ -1,10 +1,6 @@
 { input }:
 { lib, ... }:
-let
-  description = if input.current.user.meta.displayName != null then
-    input.current.user.meta.displayName
-  else
-    input.userId;
+let description = import ../../common/identity-helpers.nix { inherit input; };
 in {
   users.knownUsers = [ input.identity.name ];
 
