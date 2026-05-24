@@ -2,9 +2,9 @@
 { lib, config ? { users.mutableUsers = true; }, ... }:
 let
   systemPackages = input.packages.system or { };
-  homeOnlyPackages = lib.filterAttrs (packageId: _:
-    !(builtins.hasAttr packageId systemPackages)
-  ) (input.packages.home or { });
+  homeOnlyPackages =
+    lib.filterAttrs (packageId: _: !(builtins.hasAttr packageId systemPackages))
+    (input.packages.home or { });
   homeOnlyInput = input // {
     packages = input.packages // { home = homeOnlyPackages; };
   };
