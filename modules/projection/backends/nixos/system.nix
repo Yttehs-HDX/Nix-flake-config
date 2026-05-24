@@ -1,20 +1,33 @@
 { input }:
 { lib, config ? { users.mutableUsers = true; }, ... }:
 let
+  systemPackages = input.packages.system or { };
+  homeOnlyPackages = lib.filterAttrs (packageId: _:
+    !(builtins.hasAttr packageId systemPackages)
+  ) (input.packages.home or { });
+  homeOnlyInput = input // {
+    packages = input.packages // { home = homeOnlyPackages; };
+  };
+
   packageModules = import ../../common/package-modules.nix {
     inherit lib input;
     backendType = "nixos";
     scope = "system";
   };
-  integrationModules =
-    import ./integrations/home-packages.nix { inherit lib input; };
+  homePackageSystemModules = import ../../common/package-modules.nix {
+    inherit lib;
+    input = homeOnlyInput;
+    backendType = "nixos";
+    scope = "home";
+    backendScope = "system";
+  };
   hasInitialHashedPassword = input.account.initialHashedPassword != null;
   unsupportedWarnings = import ../../common/unsupported-warnings.nix {
     inherit lib input;
     scope = "system";
   };
 in {
-  imports = packageModules ++ integrationModules;
+  imports = packageModules ++ homePackageSystemModules;
   warnings = unsupportedWarnings;
 
   networking.hostName = input.hostId;

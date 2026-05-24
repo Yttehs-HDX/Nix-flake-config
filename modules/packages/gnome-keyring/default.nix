@@ -25,7 +25,7 @@ in {
     };
     nixos = {
       home = null;
-      system = null;
+      system = ./nixos.nix;
     };
     nix-darwin = {
       home = null;

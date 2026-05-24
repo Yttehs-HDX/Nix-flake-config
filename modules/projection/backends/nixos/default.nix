@@ -4,7 +4,7 @@ in {
   systemModules = [
     (import ./system.nix { inherit input; })
     (import ./identity.nix { inherit input; })
-  ] ++ (import ../../common/nixos-home-system-modules.nix { inherit input; });
+  ];
 
   homeModule = homeProjection.homeModule;
   homeModules = { ${input.identity.name} = [ homeProjection.homeModule ]; };

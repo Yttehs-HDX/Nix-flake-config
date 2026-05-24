@@ -1,4 +1,4 @@
-{ lib, input, backendType, scope }:
+{ lib, input, backendType, scope, backendScope ? scope }:
 let
   packageDefinitions = import ../../packages { inherit lib; };
   packageSet = input.packages.${scope} or { };
@@ -8,7 +8,7 @@ let
       let
         backendDef =
           builtins.getAttr backendType packageDefinitions.${packageId}.backends;
-        backendPath = backendDef.${scope} or null;
+        backendPath = backendDef.${backendScope} or null;
       in if backendPath == null then
         ({ ... }: { })
       else

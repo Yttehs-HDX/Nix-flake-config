@@ -15,7 +15,7 @@ in {
     };
     nixos = {
       home = ./home.nix;
-      system = null; # Could add system-level hyprland setup here
+      system = ./nixos.nix;
     };
     nix-darwin = {
       home = null; # Not supported on Darwin

@@ -13,7 +13,7 @@ in {
     };
     nixos = {
       home = ./home.nix;
-      system = null;
+      system = ./nixos.nix;
     };
     nix-darwin = {
       home = ./home.nix;

@@ -1,1 +1,4 @@
-{ ... }: { ... }: { }
+{ ... }:
+{ ... }: {
+  services.blueman.enable = true;
+}

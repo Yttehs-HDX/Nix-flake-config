@@ -12,7 +12,7 @@ let
     inherit pkgs;
     lib = pkgs.lib;
   };
-in assert builtins.length relation.systemModules >= 3;
+in assert builtins.length relation.systemModules >= 2;
 assert builtins.hasAttr "shetty" relation.homeModules;
 assert builtins.length systemConfig.imports >= 5;
 assert builtins.length homeConfig.imports >= 24;
