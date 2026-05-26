@@ -21,7 +21,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     openclaw = {
-      url = "github:openclaw/nix-openclaw";
+      url =
+        "github:openclaw/nix-openclaw/e2ea91056fdd0836bef96326a2b687277dbe3e1c";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
