@@ -114,6 +114,7 @@
     tmux = { };
     translate-shell = { };
     udisks2 = { };
+    usbutils = { };
     universal-android-debloater = { };
     unimatrix = { };
     unrar = { };
