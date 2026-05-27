@@ -53,6 +53,7 @@
     gh = { };
     git = { };
     github-copilot-cli = { };
+    gvfs = { };
     gnome-keyring = { };
     google-chrome = { };
     hmcl = { };
@@ -62,6 +63,7 @@
     hypridle = { };
     hyprpicker = { };
     hyprpolkitagent = { };
+    jmtpfs = { };
     jq = { };
     jetbrains-toolbox = { };
     kdeconnect = { };
