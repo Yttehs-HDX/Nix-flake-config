@@ -1,68 +1,66 @@
 {
-  description = "Layered Nix flake config for Shetty";
+  description = "Shetty's Nix flake config";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     hexecute = {
       url = "github:ThatOtherAndrew/Hexecute";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     openclaw = {
       url =
         "github:openclaw/nix-openclaw/e2ea91056fdd0836bef96326a2b687277dbe3e1c";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nixvim = {
       url = "github:nix-community/nixvim/nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ nixpkgs, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, ... }:
     let
-      lib = nixpkgs.lib;
-      entrypoints = import ./modules/entrypoints { inherit inputs; };
-      systems = [ "x86_64-linux" ];
-      forAllSystems = lib.genAttrs systems;
+      system = "x86_64-linux";
+
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in {
-      lib = {
-        profile = entrypoints.profile;
-        pipeline = entrypoints.pipeline;
+      nixosConfigurations."Shetty-Laptop" = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = { inherit inputs; };
+
+        modules = [ ./hosts/nixos/Shetty-Laptop ];
       };
 
-      nixosConfigurations = entrypoints.nixosConfigurations;
-      darwinConfigurations = entrypoints.darwinConfigurations;
-      homeConfigurations = entrypoints.homeConfigurations;
+      homeConfigurations."shetty@Shetty-Laptop" =
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
 
-      checks = forAllSystems (system:
-        let
-          pkgs = import nixpkgs { inherit system; };
-          tests = import ./tests/default.nix {
-            inherit lib inputs system;
-            profile = entrypoints.profile;
-            pipeline = entrypoints.pipeline;
-            nixosConfigurations = entrypoints.nixosConfigurations;
-            darwinConfigurations = entrypoints.darwinConfigurations;
-            homeConfigurations = entrypoints.homeConfigurations;
-          };
-        in {
-          architecture = builtins.seq tests
-            (pkgs.runCommand "nix-flake-config-checks" { } ''
-              touch "$out"
-            '');
-        });
+          extraSpecialArgs = { inherit inputs; };
+
+          modules = [ ./home/shetty/laptop.nix ];
+        };
     };
 }
