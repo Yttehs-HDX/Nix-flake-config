@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.jmtpfs ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.jmtpfs ];
+}

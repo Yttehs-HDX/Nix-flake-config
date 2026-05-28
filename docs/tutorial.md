@@ -97,6 +97,9 @@ hosts/nixos/<hostname>/
 
 {
   imports = [
+    ./boot.nix
+    ./locale.nix
+    ./graphics.nix
     ./hardware-configuration.nix
     ./users.nix
     ./desktop.nix
@@ -115,7 +118,10 @@ hosts/nixos/<hostname>/
 
 ### 3. 编写子配置
 
-- **hardware-configuration.nix** — 由 `nixos-generate-config` 生成
+- **hardware-configuration.nix** — 由 `nixos-generate-config` 生成，保留内核模块、文件系统、swap 等纯硬件配置
+- **boot.nix** — 引导加载器配置（从 hardware-configuration.nix 抽离）
+- **locale.nix** — 时区和语言环境（从 hardware-configuration.nix 抽离）
+- **graphics.nix** — 显卡 prime bus ID（从 hardware-configuration.nix 抽离）
 - **users.nix** — 系统用户和用户组
 - **desktop.nix** — 桌面环境（导入 `modules/nixos/desktop/` 下的模块）
 - **home.nix** — Home Manager 集成，指定用户的 home 配置

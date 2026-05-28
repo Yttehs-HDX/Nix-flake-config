@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.python313Packages.huggingface-hub ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.python313Packages.huggingface-hub ];
+}

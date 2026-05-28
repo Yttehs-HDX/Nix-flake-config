@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.pipes-rs ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.pipes-rs ];
+}

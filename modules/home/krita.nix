@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.krita ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.krita ];
+}

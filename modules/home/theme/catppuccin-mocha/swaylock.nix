@@ -1,7 +1,9 @@
 { lib, ... }:
 
-let palette = import ./palette.nix;
-in {
+let
+  palette = import ./palette.nix;
+in
+{
   programs.swaylock.settings = {
     screenshots = true;
     clock = true;

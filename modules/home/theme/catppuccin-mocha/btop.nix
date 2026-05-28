@@ -1,5 +1,7 @@
-let palette = import ./palette.nix;
-in {
+let
+  palette = import ./palette.nix;
+in
+{
   xdg.configFile."btop/themes/catppuccin-mocha.theme".text = ''
     theme[main_bg]="${palette.base}"
     theme[main_fg]="${palette.text}"

@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.metasploit ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.metasploit ];
+}

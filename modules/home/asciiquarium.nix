@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.asciiquarium ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.asciiquarium ];
+}

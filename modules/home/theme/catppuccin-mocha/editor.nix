@@ -18,7 +18,10 @@
         treesitter = true;
       };
       styles = {
-        booleans = [ "bold" "italic" ];
+        booleans = [
+          "bold"
+          "italic"
+        ];
         conditionals = [ "bold" ];
       };
       term_colors = true;

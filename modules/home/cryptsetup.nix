@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.cryptsetup ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.cryptsetup ];
+}

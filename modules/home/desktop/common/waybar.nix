@@ -20,14 +20,24 @@
       margin-right = 3;
       margin-bottom = 2;
 
-      modules-left = [ "group/hyprland" "cava" ];
+      modules-left = [
+        "group/hyprland"
+        "cava"
+      ];
       modules-center = [ "group/misc" ];
-      modules-right =
-        [ "group/monitor" "group/connection" "group/quick" "group/power" ];
+      modules-right = [
+        "group/monitor"
+        "group/connection"
+        "group/quick"
+        "group/power"
+      ];
 
       "group/hyprland" = {
         orientation = "horizontal";
-        modules = [ "hyprland/workspaces" "hyprland/window" ];
+        modules = [
+          "hyprland/workspaces"
+          "hyprland/window"
+        ];
       };
 
       "hyprland/workspaces" = {
@@ -48,7 +58,16 @@
           "10" = "拾";
         };
         on-click = "activate";
-        persistent-workspaces = { "*" = [ 1 2 3 4 5 6 ]; };
+        persistent-workspaces = {
+          "*" = [
+            1
+            2
+            3
+            4
+            5
+            6
+          ];
+        };
       };
 
       "hyprland/window" = {
@@ -61,7 +80,16 @@
         hide_on_silence = true;
         framerate = 60;
         bars = 8;
-        format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+        format-icons = [
+          "▁"
+          "▂"
+          "▃"
+          "▄"
+          "▅"
+          "▆"
+          "▇"
+          "█"
+        ];
         input_delay = 1;
         sleep_timer = 5;
         bar_delimiter = 0;
@@ -70,7 +98,10 @@
 
       "group/misc" = {
         orientation = "horizontal";
-        modules = [ "clock" "custom/lyric" ];
+        modules = [
+          "clock"
+          "custom/lyric"
+        ];
       };
 
       clock = {
@@ -109,7 +140,12 @@
 
       "group/monitor" = {
         orientation = "horizontal";
-        modules = [ "cpu" "memory" "backlight" "pulseaudio" ];
+        modules = [
+          "cpu"
+          "memory"
+          "backlight"
+          "pulseaudio"
+        ];
       };
 
       cpu = {
@@ -125,27 +161,50 @@
 
       backlight = {
         format = "{icon} {percent}";
-        format-icons = [ " " " " " " " " " " " " " " " " " " ];
+        format-icons = [
+          " "
+          " "
+          " "
+          " "
+          " "
+          " "
+          " "
+          " "
+          " "
+        ];
       };
 
       pulseaudio = {
         format = "{icon} {volume}";
         format-bluetooth = "  {volume}";
         format-muted = " ";
-        format-icons.default = [ "" " " " " ];
+        format-icons.default = [
+          ""
+          " "
+          " "
+        ];
         on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
       };
 
       "group/connection" = {
         orientation = "horizontal";
-        modules = [ "network" "bluetooth" ];
+        modules = [
+          "network"
+          "bluetooth"
+        ];
       };
 
       network = {
         interface = "wlo1";
         format = "{icon}";
         format-icons = {
-          wifi = [ "󰤯 " "󰤟 " "󰤢 " "󰤥 " "󰤨 " ];
+          wifi = [
+            "󰤯 "
+            "󰤟 "
+            "󰤢 "
+            "󰤥 "
+            "󰤨 "
+          ];
           ethernet = [ "󰈀 " ];
           disconnected = [ "󰤭 " ];
         };
@@ -162,8 +221,7 @@
         tooltip-format-connected = "{device_enumerate}";
         tooltip-format-off = "Off";
         tooltip-format-disabled = "Off";
-        tooltip-format-enumerate-connected =
-          "{device_alias}	{device_battery_percentage}%";
+        tooltip-format-enumerate-connected = "{device_alias}	{device_battery_percentage}%";
       };
 
       "group/quick" = {
@@ -172,7 +230,10 @@
           transition-duration = 300;
           transition-left-to-right = false;
         };
-        modules = [ "custom/hexecute" "tray" ];
+        modules = [
+          "custom/hexecute"
+          "tray"
+        ];
       };
 
       tray = {
@@ -182,7 +243,10 @@
 
       "group/power" = {
         orientation = "inherit";
-        modules = [ "idle_inhibitor" "battery" ];
+        modules = [
+          "idle_inhibitor"
+          "battery"
+        ];
       };
 
       idle_inhibitor = {
@@ -200,7 +264,18 @@
           critical = 15;
         };
         format = "{icon} {capacity}";
-        format-icons = [ "󰁺" "󰁻" "󰁼" "󰁾" "󰁿" "󰂀" "󰂁" "󰂁" "󰂂" "󰁹" ];
+        format-icons = [
+          "󰁺"
+          "󰁻"
+          "󰁼"
+          "󰁾"
+          "󰁿"
+          "󰂀"
+          "󰂁"
+          "󰂁"
+          "󰂂"
+          "󰁹"
+        ];
         on-click = "swaync-client -t";
       };
 

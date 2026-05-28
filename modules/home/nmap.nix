@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.nmap ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.nmap ];
+}

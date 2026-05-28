@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.tesseract ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.tesseract ];
+}

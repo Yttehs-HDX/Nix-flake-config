@@ -1,15 +1,15 @@
 { lib, pkgs, ... }:
 
-let
-  nvidiaBusId = "PCI:1:0:0";
-  intelBusId = "PCI:0:2:0";
-in {
+{
   nixpkgs.config = {
     nvidia.acceptLicense = true;
     cudaSupport = true;
-    allowUnfreePredicate = pkg:
-      let name = lib.getName pkg;
-      in lib.hasPrefix "cuda" name || lib.hasPrefix "nvidia" name;
+    allowUnfreePredicate =
+      pkg:
+      let
+        name = lib.getName pkg;
+      in
+      lib.hasPrefix "cuda" name || lib.hasPrefix "nvidia" name;
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -24,14 +24,10 @@ in {
       finegrained = true;
     };
 
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-        offloadCmdMainProgram = "prime-run";
-      };
-      nvidiaBusId = nvidiaBusId;
-      intelBusId = intelBusId;
+    prime.offload = {
+      enable = true;
+      enableOffloadCmd = true;
+      offloadCmdMainProgram = "prime-run";
     };
   };
 

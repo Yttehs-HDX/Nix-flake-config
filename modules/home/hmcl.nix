@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.hmcl ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.hmcl ];
+}

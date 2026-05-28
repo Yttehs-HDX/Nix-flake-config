@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.ethtool ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.ethtool ];
+}

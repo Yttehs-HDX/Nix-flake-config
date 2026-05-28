@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.wget ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.wget ];
+}

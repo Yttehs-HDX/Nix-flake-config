@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.libnotify ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.libnotify ];
+}

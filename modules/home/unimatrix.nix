@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.unimatrix ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.unimatrix ];
+}

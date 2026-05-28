@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs._7zz ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs._7zz ];
+}

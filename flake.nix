@@ -26,8 +26,7 @@
     };
 
     openclaw = {
-      url =
-        "github:openclaw/nix-openclaw/e2ea91056fdd0836bef96326a2b687277dbe3e1c";
+      url = "github:openclaw/nix-openclaw/e2ea91056fdd0836bef96326a2b687277dbe3e1c";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -37,7 +36,8 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }:
+  outputs =
+    inputs@{ nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
 
@@ -45,7 +45,8 @@
         inherit system;
         config.allowUnfree = true;
       };
-    in {
+    in
+    {
       nixosConfigurations."Shetty-Laptop" = nixpkgs.lib.nixosSystem {
         inherit system;
 
@@ -54,13 +55,12 @@
         modules = [ ./hosts/nixos/Shetty-Laptop ];
       };
 
-      homeConfigurations."shetty@Shetty-Laptop" =
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+      homeConfigurations."shetty@Shetty-Laptop" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-          extraSpecialArgs = { inherit inputs; };
+        extraSpecialArgs = { inherit inputs; };
 
-          modules = [ ./home/shetty/laptop.nix ];
-        };
+        modules = [ ./home/shetty/laptop.nix ];
+      };
     };
 }

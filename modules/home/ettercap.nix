@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.ettercap ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.ettercap ];
+}

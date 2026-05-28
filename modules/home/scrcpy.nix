@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.scrcpy ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.scrcpy ];
+}

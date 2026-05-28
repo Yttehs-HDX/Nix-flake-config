@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.zip ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.zip ];
+}

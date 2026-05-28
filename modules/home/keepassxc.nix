@@ -5,4 +5,7 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-in { home.packages = [ unstable.keepassxc ]; }
+in
+{
+  home.packages = [ unstable.keepassxc ];
+}

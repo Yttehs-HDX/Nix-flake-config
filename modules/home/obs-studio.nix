@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.obs-studio ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.obs-studio ];
+}

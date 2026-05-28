@@ -6,7 +6,8 @@ let
     accent = "lavender";
   };
   themeName = "catppuccin-mocha-lavender";
-in {
+in
+{
   qt = {
     enable = true;
     platformTheme.name = "gtk";
@@ -14,8 +15,7 @@ in {
   };
 
   xdg.configFile = {
-    "Kvantum/${themeName}".source =
-      "${kvantumTheme}/share/Kvantum/${themeName}";
+    "Kvantum/${themeName}".source = "${kvantumTheme}/share/Kvantum/${themeName}";
     "Kvantum/kvantum.kvconfig".text = ''
       [General]
       theme=${themeName}

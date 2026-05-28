@@ -1,1 +1,4 @@
-{ ... }: { programs.htop.enable = true; }
+{ ... }:
+{
+  programs.htop.enable = true;
+}

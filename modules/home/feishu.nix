@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.feishu ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.feishu ];
+}

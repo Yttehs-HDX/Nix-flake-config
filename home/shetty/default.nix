@@ -10,8 +10,7 @@
     ../../modules/home/btop.nix
     ../../modules/home/cava.nix
     ../../modules/home/openclaw.nix
-    ../../modules/home/ocr.nix
-    ../../modules/home/clash-verge.nix
+    ../../modules/home/clash-verge-rev.nix
     ../../modules/home/bat.nix
     ../../modules/home/direnv.nix
     ../../modules/home/eza.nix
@@ -61,7 +60,7 @@
     ../../modules/home/metasploit.nix
     ../../modules/home/mikusays.nix
     ../../modules/home/net-tools.nix
-    ../../modules/home/nixfmt-classic.nix
+    ../../modules/home/nixfmt.nix
     ../../modules/home/nmap.nix
     ../../modules/home/nodejs.nix
     ../../modules/home/noto-fonts-emoji-blob-bin.nix

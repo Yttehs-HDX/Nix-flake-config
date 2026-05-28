@@ -3,7 +3,12 @@
 {
   programs.rofi = {
     enable = true;
-    modes = [ "run" "drun" "window" "filebrowser" ];
+    modes = [
+      "run"
+      "drun"
+      "window"
+      "filebrowser"
+    ];
     terminal = "kitty";
 
     extraConfig = {

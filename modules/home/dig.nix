@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.dig ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.dig ];
+}

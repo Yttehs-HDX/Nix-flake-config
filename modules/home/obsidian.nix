@@ -5,7 +5,8 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-in {
+in
+{
   home.packages = [
     (unstable.symlinkJoin {
       name = "obsidian";

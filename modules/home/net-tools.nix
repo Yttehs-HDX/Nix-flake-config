@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.net-tools ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.net-tools ];
+}

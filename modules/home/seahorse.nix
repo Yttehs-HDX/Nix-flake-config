@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.seahorse ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.seahorse ];
+}

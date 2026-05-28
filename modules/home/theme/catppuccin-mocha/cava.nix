@@ -1,5 +1,7 @@
-let palette = import ./palette.nix;
-in {
+let
+  palette = import ./palette.nix;
+in
+{
   programs.cava.settings = {
     color = {
       gradient = 1;

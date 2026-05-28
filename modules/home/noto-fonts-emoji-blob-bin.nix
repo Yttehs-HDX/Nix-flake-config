@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.noto-fonts-emoji-blob-bin ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.noto-fonts-emoji-blob-bin ];
+}

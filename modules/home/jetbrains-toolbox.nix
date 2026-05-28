@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.jetbrains-toolbox ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.jetbrains-toolbox ];
+}

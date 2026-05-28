@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.cbonsai ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.cbonsai ];
+}

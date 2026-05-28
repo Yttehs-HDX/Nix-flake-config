@@ -1,7 +1,33 @@
-{ config, lib, pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 
-let rgba = color: alpha: "rgba(${lib.removePrefix "#" color}${alpha})";
-in {
+let
+  fcitxStart = "fcitx5 -d";
+  playerctlNext = "playerctl next";
+  playerctlPlayPause = "playerctl play-pause";
+  playerctlPrevious = "playerctl previous";
+  wpctlSetVolumeUp = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+  wpctlSetVolumeDown = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+  wpctlSetMute = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+  wpctlSetMicMute = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+  brightnessctlUp = "brightnessctl s 5%+";
+  brightnessctlDown = "brightnessctl s 5%-";
+  brightnessctlKbdUp = "brightnessctl -d *::kbd_backlight set 33%+";
+  brightnessctlKbdDown = "brightnessctl -d *::kbd_backlight set 33%-";
+  terminalStart = "kitty";
+  rofiToggle = "rofi -show drun";
+  hyprctlDispatchToggleFloating = "hyprctl dispatch togglefloating";
+  hyprctlDispatchExit = "hyprctl dispatch exit";
+  cliphistToggle = "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
+  rofimojiToggle = "rofimoji --action copy --prompt 'emoji' --use-icons";
+  screenshotStart = "screenshot";
+  ocrStart = "ocr";
+  swaylockStart = "swaylock";
+  hyprpickerStart = "hyprpicker --autocopy --format=hex";
+in
+{
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
@@ -32,37 +58,40 @@ in {
 
       "$mod" = "SUPER";
 
-      exec-once = [ "fcitx5 -d" ];
+      exec-once = [ fcitxStart ];
 
-      bindm = [ "$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow" ];
+      bindm = [
+        "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizewindow"
+      ];
 
       bindl = [
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPause, exec, playerctl play-pause"
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioNext, exec, ${playerctlNext}"
+        ", XF86AudioPause, exec, ${playerctlPlayPause}"
+        ", XF86AudioPlay, exec, ${playerctlPlayPause}"
+        ", XF86AudioPrev, exec, ${playerctlPrevious}"
       ];
 
       bindel = [
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ", XF86MonBrightnessUp, exec, brightnessctl s 5%+"
-        ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
-        ", xf86KbdBrightnessUp, exec, brightnessctl -d *::kbd_backlight set 33%+"
-        ", xf86KbdBrightnessDown, exec, brightnessctl -d *::kbd_backlight set 33%-"
+        ", XF86AudioRaiseVolume, exec, ${wpctlSetVolumeUp}"
+        ", XF86AudioLowerVolume, exec, ${wpctlSetVolumeDown}"
+        ", XF86AudioMute, exec, ${wpctlSetMute}"
+        ", XF86AudioMicMute, exec, ${wpctlSetMicMute}"
+        ", XF86MonBrightnessUp, exec, ${brightnessctlUp}"
+        ", XF86MonBrightnessDown, exec, ${brightnessctlDown}"
+        ", xf86KbdBrightnessUp, exec, ${brightnessctlKbdUp}"
+        ", xf86KbdBrightnessDown, exec, ${brightnessctlKbdDown}"
       ];
 
       bind = [
-        "$mod, Q, exec, kitty"
-        "$mod, R, exec, rofi -show drun"
+        "$mod, Q, exec, ${terminalStart}"
+        "$mod, R, exec, ${rofiToggle}"
         "$mod, F, fullscreen"
         "$mod, C, killactive"
-        "$mod, V, exec, hyprctl dispatch togglefloating"
+        "$mod, V, exec, ${hyprctlDispatchToggleFloating}"
         "$mod, TAB, hyprexpo:expo, toggle"
         "$mod, escape, exec, hexecute"
-        "$mod, M, exec, hyprctl dispatch exit"
+        "$mod, M, exec, ${hyprctlDispatchExit}"
 
         "$mod, left, movefocus, l"
         "$mod, right, movefocus, r"
@@ -81,31 +110,36 @@ in {
         "$mod, mouse_down, workspace, e-1"
         "$mod, mouse_up, workspace, e+1"
 
-        "$mod, W, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-        "$mod, E, exec, rofimoji --action copy --prompt 'emoji' --use-icons"
-        ", Print, exec, grimblast copy area"
-        "$mod SHIFT, S, exec, grimblast copy area"
-        "$mod SHIFT, T, exec, ocr"
-        "$mod ALT, L, exec, swaylock-themed"
-        "$mod ALT, DELETE, exec, hyprpicker -a"
-      ] ++ builtins.concatLists (builtins.genList (i:
-        let
-          key = i + 1;
-          ws = toString key;
-        in [
-          "$mod, ${ws}, workspace, ${ws}"
-          "$mod SHIFT, ${ws}, movetoworkspace, ${ws}"
-        ]) 9)
-        ++ [ "$mod, 0, workspace, 10" "$mod SHIFT, 0, movetoworkspace, 10" ];
+        "$mod, W, exec, ${cliphistToggle}"
+        "$mod, E, exec, ${rofimojiToggle}"
+        ", Print, exec, ${screenshotStart}"
+        "$mod SHIFT, S, exec, ${screenshotStart}"
+        "$mod SHIFT, T, exec, ${ocrStart}"
+        "$mod ALT, L, exec, ${swaylockStart}"
+        "$mod ALT, DELETE, exec, ${hyprpickerStart}"
+      ]
+      ++ builtins.concatLists (
+        builtins.genList (
+          i:
+          let
+            key = i + 1;
+            ws = toString key;
+          in
+          [
+            "$mod, ${ws}, workspace, ${ws}"
+            "$mod SHIFT, ${ws}, movetoworkspace, ${ws}"
+          ]
+        ) 9
+      )
+      ++ [
+        "$mod, 0, workspace, 10"
+        "$mod SHIFT, 0, movetoworkspace, 10"
+      ];
 
       general = {
         gaps_in = 2;
         gaps_out = 4.5;
         border_size = 2;
-        "col.active_border" =
-          "${rgba "#cba6f7" "ff"} ${rgba "#f5e0dc" "ff"} 45deg";
-        "col.inactive_border" =
-          "${rgba "#b4befe" "cc"} ${rgba "#6c7086" "cc"} 45deg";
         resize_on_border = true;
         layout = "dwindle";
       };
@@ -149,14 +183,17 @@ in {
         ];
       };
 
-      layerrule =
-        [ "blur,rofi" "ignorezero,rofi" "blur,waybar" "ignorezero,waybar" ];
+      layerrule = [
+        "blur,rofi"
+        "ignorezero,rofi"
+        "blur,waybar"
+        "ignorezero,waybar"
+      ];
 
       plugin = {
         hyprexpo = {
           columns = 3;
           gap_size = 4;
-          bg_col = rgba "#1e1e2e" "cc";
           workspace_method = "center current";
           gesture_distance = 300;
         };
@@ -174,6 +211,5 @@ in {
       pkgs.hyprlandPlugins.hyprexpo
       pkgs.hyprlandPlugins."hypr-dynamic-cursors"
     ];
-
   };
 }

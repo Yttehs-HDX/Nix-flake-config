@@ -1,5 +1,7 @@
-let palette = import ./palette.nix;
-in {
+let
+  palette = import ./palette.nix;
+in
+{
   programs.waybar.style = ''
     @define-color rosewater ${palette.rosewater};
     @define-color flamingo ${palette.flamingo};

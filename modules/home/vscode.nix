@@ -5,7 +5,8 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-in {
+in
+{
   programs.vscode = {
     enable = true;
     package = unstable.vscode;

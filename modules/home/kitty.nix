@@ -4,7 +4,8 @@ let
   icat = pkgs.writeShellScriptBin "icat" ''
     exec ${pkgs.kitty}/bin/kitten icat "$@"
   '';
-in {
+in
+{
   home.packages = [ icat ];
 
   programs.kitty = {

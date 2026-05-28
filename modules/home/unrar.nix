@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.unrar ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.unrar ];
+}

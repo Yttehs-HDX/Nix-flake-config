@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.cmatrix ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.cmatrix ];
+}

@@ -1,1 +1,4 @@
-{ pkgs, ... }: { home.packages = [ pkgs.translate-shell ]; }
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.translate-shell ];
+}
