@@ -9,9 +9,9 @@
 
     ../../../modules/nixos/nix.nix
     ../../../modules/nixos/networking.nix
-    ../../../modules/nixos/bluetooth.nix
-    ../../../modules/nixos/audio.nix
-    ../../../modules/nixos/fonts.nix
+    ../../../modules/nixos/desktop/bluetooth.nix
+    ../../../modules/nixos/desktop/audio.nix
+    ../../../modules/nixos/desktop/fonts.nix
     ../../../modules/nixos/docker.nix
     ../../../modules/nixos/android.nix
     ../../../modules/nixos/virtualization.nix
@@ -20,12 +20,12 @@
     ../../../modules/nixos/power.nix
     ../../../modules/nixos/zram.nix
     ../../../modules/nixos/gvfs.nix
-    ../../../modules/nixos/gnome-keyring.nix
-    ../../../modules/nixos/blueman.nix
+    ../../../modules/nixos/desktop/gnome-keyring.nix
+    ../../../modules/nixos/desktop/blueman.nix
     ../../../modules/nixos/wireshark.nix
     ../../../modules/nixos/refind.nix
     ../../../modules/nixos/clash-verge.nix
-    ../../../modules/nixos/udisks2.nix
+    ../../../modules/nixos/desktop/udisks2.nix
     ../../../modules/nixos/neovim.nix
   ];
 

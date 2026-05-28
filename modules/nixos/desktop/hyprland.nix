@@ -11,7 +11,7 @@ let
   };
   themeId = "catppuccin-${theme.flavor}-${theme.accent}";
 in {
-  imports = [ ../audio.nix ../fonts.nix ../portal.nix ];
+  imports = [ ./audio.nix ./fonts.nix ./portal.nix ];
 
   programs.hyprland.enable = true;
 
