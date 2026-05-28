@@ -1,307 +1,60 @@
 # AGENTS.md
-本文件面向整个 `nix-flake-config` 项目的长期开发周期。  
-它不是项目介绍，也不是早期设计笔记，而是一份给 Agent / 自动化代码助手 / 协作开发者的**持续性工作约束**。
 
-目标只有一个：
-> 让任何后续实现、重构、扩展，都继续沿着项目既定的架构演进，而不是为了短期可运行结果破坏结构。
+This repository is a personal Nix flake configuration project. It is not a configuration framework.
 
----
-## 1. 适用范围
-本文件适用于：
-- 代码生成
-- 模块实现
-- 重构
-- 新功能接入
-- backend 扩展
-- projector 扩展
-- schema 调整
-- 测试补充
-- 文档同步
+## Guiding principles
 
-它不是“初始化阶段专用说明”。  
-只要项目还沿用当前这套架构，本文件就持续有效。
+1. **NixOS module system is the framework** — do not build another layer on top of `imports`.
+2. **File names express responsibility boundaries** — `git.nix`, `zsh.nix`, `hyprland.nix`.
+3. **Use `imports` for composition** — not custom pipelines, registries, or auto-discovery.
+4. **Use official NixOS / Home Manager options** — not custom option schemas.
 
----
-## 2. 工作前提
-在开始任何非微小修改前，必须先理解项目已有设计文档。  
-不要只看代码猜结构，也不要只靠目录名推断职责。
+## Module types
 
-建议最少阅读：
-1. `docs/README.md`
-2. 与当前任务直接相关的文档
-3. 当前改动涉及的代码目录
+- **leaf module** — writes actual config using official options. Example: `modules/home/zsh.nix`
+- **bundle module** — only `imports` leaf modules. Example: `modules/home/desktop/hyprland/default.nix`
+- **entrypoint** — selects the final composition. Example: `home/shetty/laptop.nix`
 
-若任务跨越多个阶段，必须补读完整链路文档，而不是只看局部。
+## Directory structure
 
----
-## 3. 决策优先级
-当“文档、现有代码、实现便利性”三者冲突时，遵循以下优先级：
-1. **明确的设计文档**
-2. **已经稳定存在的代码边界**
-3. **局部实现便利性**
-
-不要为了少写几行代码跨层读取，也不要为了快速完成把语义塞进错误对象。
-
----
-## 4. 项目中的硬性边界
-以下规则默认不可破坏。  
-如果确实需要改变，必须先改文档，再改实现。
-
-### 4.1 `User` / `Host` / `Relation` 不得混用
-- `User` 表达长期用户语义
-- `Host` 表达主机本体语义
-- `Relation` 表达用户在主机上的实例绑定
-
-任何实例身份、组、home 路径、实例启用能力，都不应被塞回 `User` 或 `Host`。
-
----
-### 4.2 `Relation` 是唯一实例化入口
-不要绕过 `Relation` 直接从 `User + Host` 生成部署对象。  
-也不要让 `Host` 内部偷偷持有“本机用户实例定义”。
-
----
-### 4.3 Source 与派生结果必须分离
-用户可写的声明层与系统内部派生层必须分开：
-- Source：`profile.users` / `profile.hosts` / `profile.relations`
-- Derived：`normalized` / `instances` / `current` / `projectionInputs` / outputs
-
-不要让派生结果反向污染 source schema。
-
----
-### 4.4 Projector 不直接消费原始声明
-Projector 应优先消费统一的中间接口，例如：
-- `current`
-- `projectionInputs`
-
-不要让 projector 自己回头去翻原始 `users / hosts / relations`。
-
----
-### 4.5 Assembly 不拥有语义解释权
-Assembly 只负责收集、合并、挂接结果。  
-它不应重新定义对象含义，也不应偷偷承担 normalize / validate / projector 职责。
-
----
-### 4.6 私有字段不是公共接口
-任何以下划线或内部命名空间暴露的内容：
-- `_internal`
-- `_cache`
-- `_derived`
-- `_tmp`
-
-都不应被普通业务模块依赖。
-
----
-## 5. 实现时的阶段纪律
-默认按以下顺序思考和落代码：
-1. schema / source
-2. normalize
-3. validate
-4. instantiate
-5. context
-6. projection
-7. assembly
-
-如果某个改动同时触及多个阶段，必须显式判断每段代码属于哪一层。  
-不要在一个模块里顺手做完整条流水线。
-
----
-## 6. 写代码时的基本要求
-### 6.1 先保结构，再保功能扩张
-优先实现一条干净、最小、可验证的闭环。  
-不要一开始追求覆盖全部软件、全部 backend、全部场景。
-
----
-### 6.2 优先增加“稳定接口”，而不是“临时捷径”
-如果多个模块都需要某类上下文，应该：
-- 提升为明确接口
-- 放进 `context` 或 `interfaces`
-
-而不是让各模块分别从不同路径手撕数据。
-
----
-### 6.3 新字段必须先回答归属问题
-增加字段前，先回答：
-- 它属于 `User`、`Host` 还是 `Relation`？
-- 它是 source 字段还是 derived 字段？
-- 它是否应成为公共接口？
-- 它是否只在某个 backend 中成立？
-
-没有回答清楚前，不要直接加字段。
-
----
-### 6.4 新能力优先建语义名，不要直接绑定 backend
-例如优先：
-- `desktop`
-- `development`
-- `theme`
-
-而不是：
-- `nixosThing`
-- `hmOnlyFeature`
-
-backend 差异应尽量在投影阶段吸收。
-
----
-### 6.5 避免“万能 helper”
-如果某个 helper 开始做以下事情，它就不再是 helper：
-- 判断对象归属
-- 自动修正业务语义
-- 决定投影策略
-- 隐式修改解析流
-
-这类逻辑应回到明确阶段模块中。
-
----
-## 7. 目录使用约定
-### 7.1 根目录下的 `users/`、`hosts/`、`relations/` 是声明入口
-它们存放的是对象声明，不是系统逻辑。  
-不要在这些目录里塞 normalize、projection、backend-specific 代码。
-
----
-### 7.2 `modules/` 下的目录按阶段承担职责
-新增实现时，优先落到对应阶段目录，而不是按软件名在根部乱建文件。
-
----
-### 7.3 如果一个改动无法自然归入现有阶段目录
-先停下来判断：
-- 是缺少公共接口？
-- 是边界定义不够？
-- 还是这次改动本身越界了？
-
-不要用一个 `misc.nix`、`extra.nix`、`utils2.nix` 之类的文件糊过去。
-
----
-## 8. 文档同步规则
-以下情况必须同步更新文档：
-
-### 必须更新文档的改动
-- 新增或删除 source schema 字段
-- 改变字段归属
-- 改变阶段边界
-- 改变公共接口
-- 改变目录层级含义
-- 改变 backend / scope 的核心解释方式
-- 改变能力解析规则
-
-### 通常不必更新文档的改动
-- 纯重构但不改变语义
-- 小范围实现细节优化
-- 测试补充
-- 注释修复
-- 明显局部 bugfix
-
-文档与代码冲突时，不允许只改代码不改文档然后假装结构没变。
-
----
-## 9. 测试要求
-任何实质性架构改动，至少应附带对应层级的验证。
-
-### 验证命令
-**每次修改后必须运行 `nix flake check` 并确认通过，再提交或结束改动。**
-
-运行前需确保 Nix 已启用以下实验性功能：
 ```
-nix-command flakes
+flake.nix              — declares inputs, nixosConfigurations, homeConfigurations
+hosts/nixos/<name>/    — per-machine NixOS configs (hardware, users, system services)
+home/<user>/           — per-user Home Manager entrypoints (laptop, server, etc.)
+modules/nixos/         — reusable NixOS leaf and bundle modules
+modules/home/          — reusable Home Manager leaf and bundle modules
+overlays/              — nixpkgs overlays
 ```
 
-可通过以下方式临时启用：
+## What to do
+
+- Keep config in official NixOS / Home Manager options.
+- Use `imports` to express module composition.
+- Split complex config into leaf modules.
+- Keep system (NixOS) and user (Home Manager) concerns separate.
+- Keep theme and desktop concerns separate.
+- Retain standalone Home Manager outputs for `home-manager switch`.
+
+## What to avoid
+
+- Custom option schemas (e.g., `my.desktop.hyprland.enable`).
+- Auto-discovery of directories to generate config.
+- Putting user groups in Home Manager (groups belong to NixOS).
+- Desktop bundles that hardcode a theme.
+- Theme bundles that control window manager behavior.
+- Hiding flake entrypoints behind abstraction layers.
+
+## When to create a new module
+
+- Used by 1-2 places: inline or direct import.
+- Used by 3+ places: extract to `modules/`.
+- Needs root: goes in `modules/nixos/` or `hosts/`.
+- User-only: goes in `modules/home/` or `home/`.
+
+## Validation
+
 ```bash
-nix --extra-experimental-features 'nix-command flakes' flake check
+nix flake check
+nix build .#homeConfigurations."shetty@yuki".activationPackage
+nix build .#nixosConfigurations.yuki.config.system.build.toplevel
 ```
-
-### 最低要求
-- 改 schema：补 schema / normalization / validation 相关测试
-- 改 relation / instance：补实例生成测试
-- 改 current / projectionInputs：补 context 测试
-- 改 projector：补正向投影测试
-- 改 assembly：补最终组装测试
-
-### 推荐要求
-每新增一个新能力或新 projector，至少有：
-1. 一个最小成功样例
-2. 一个非法输入样例
-3. 一个边界条件样例
-
----
-## 10. 新功能接入流程
-新增一个能力、程序、主题字段、projector 或 backend 适配时，推荐按下面顺序推进：
-1. 明确归属对象
-2. 明确 source schema 是否需要扩展
-3. 明确 normalize 是否需要补默认值
-4. 明确 validation 规则
-5. 明确 instance / context 中是否要暴露
-6. 实现 projector
-7. 接入 assembly
-8. 补测试
-9. 必要时补文档
-
-不要一上来直接往 backend 模块里塞一段实现。
-
----
-## 11. 允许做的事
-以下行为是鼓励的：
-- 在不破坏边界的前提下做小步重构
-- 将重复读取逻辑提升为 context/interface
-- 将 backend-specific 差异收束到 projector / assembly 层
-- 为 schema、projection、assembly 增加明确测试
-- 为已有目录增加更清晰的子分层
-- 用更稳定的名称替换含糊名称
-
----
-## 12. 明确不鼓励的事
-以下做法即使“能跑”，也默认不应采用：
-- 让 projector 直接读取 source model
-- 把 relation 语义塞回 user / host
-- 用 host 去覆盖 user 的长期偏好
-- 在 assembly 中偷偷补 normalize 默认值
-- 依赖 `_internal` 作为常规接口
-- 在根目录按软件名平铺大量实现文件
-- 遇到边界问题就新增一个“临时总入口”掩盖问题
-
----
-## 13. 提交改动前的自查清单
-提交前至少自查下面几项：
-- 这次改动属于哪个阶段？
-- 是否越过了既定边界？
-- 是否新增了本不该属于该对象的字段？
-- projector 是否仍然只依赖稳定中间接口？
-- 是否引入了新的隐式公共接口？
-- 是否需要同步文档？
-- 是否补了最小必要测试？
-
-如果这些问题答不清楚，说明改动还不够稳。
-
----
-## 14. 给 Agent 的实际执行建议
-当你作为 Agent 修改本项目时，优先采用以下策略：
-
-### 小改动
-- 尽量最小化 patch
-- 不顺手重命名无关结构
-- 不引入新的抽象层，除非当前结构确实撑不住
-
-### 中改动
-- 先确定涉及哪些阶段
-- 分阶段落代码，而不是把逻辑揉成一个模块
-- 必要时先补接口，再写使用方
-
-### 大改动
-- 先修改文档或至少补一份设计说明
-- 再改 schema / 解析流 / 模块边界
-- 最后落实现
-
----
-## 15. 本文件与 docs 的关系
-本文件不替代 `docs/` 下的详细设计文档。  
-它的职责是把那些文档收束成一套**持续适用的工程行为准则**。
-
-可以把它理解为：
-- `docs/` 说明“项目设计是什么”
-- `AGENTS.md` 说明“后续开发时该怎么不把它做坏”
-
----
-## 16. 一句话准则
-当你不确定某个实现是否合适时，优先问自己这句：
-> 这次改动是在强化既有结构，还是在为了局部方便绕开它？
-
-如果答案是后者，就先停下来，重新设计。
