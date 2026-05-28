@@ -6,5 +6,21 @@
     ./notification.nix
     ./lock.nix
     ./wallpaper.nix
+    ./blueman-applet.nix
+    ./brightnessctl.nix
+    ./cliphist.nix
+    ./gnome-keyring.nix
+    ./grimblast.nix
+    ./hypridle.nix
+    ./hyprpicker.nix
+    ./hyprpolkitagent.nix
+    ./network-manager-applet.nix
+    ./playerctl.nix
+    ./pulseaudio.nix
+    ./rofimoji.nix
+    ./swappy.nix
+    ./udiskie.nix
+    ./wl-clipboard.nix
+    ./xdg.nix
   ];
 }

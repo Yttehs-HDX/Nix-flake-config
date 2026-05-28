@@ -1,8 +1,6 @@
 { lib, pkgs, ... }:
 
 {
-  home.packages = [ pkgs.playerctl ];
-
   programs.waybar = {
     enable = true;
     systemd.enable = true;

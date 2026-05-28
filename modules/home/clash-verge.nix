@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  home.packages = [ pkgs.clash-verge-rev ];
+
   systemd.user.services.clash-verge-rev = {
     Unit = {
       Description = "Clash Verge Rev";

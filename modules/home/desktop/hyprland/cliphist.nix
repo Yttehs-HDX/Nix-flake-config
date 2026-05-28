@@ -1,0 +1,1 @@
+{ ... }: { services.cliphist.enable = true; }
