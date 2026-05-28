@@ -3,16 +3,16 @@
 {
   imports = [
     ./boot.nix
-    ./locale.nix
+    ./desktop.nix
+    ./firewall.nix
     ./graphics.nix
     ./hardware-configuration.nix
-    ./users.nix
-    ./desktop.nix
     ./home.nix
+    ./locale.nix
+    ./users.nix
 
     ../../../modules/nixos/nix.nix
     ../../../modules/nixos/networking.nix
-    ../../../modules/nixos/firewall.nix
     ../../../modules/nixos/networkmanager.nix
     ../../../modules/nixos/docker.nix
     ../../../modules/nixos/android.nix
