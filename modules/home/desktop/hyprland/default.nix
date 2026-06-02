@@ -4,6 +4,7 @@
     ./hyprland.nix
     ./hyprpicker.nix
     ./hyprpolkitagent.nix
+    ../common/fonts.nix
     ../common/blueman-applet.nix
     ../common/brightnessctl.nix
     ../common/cliphist.nix

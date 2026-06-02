@@ -1,4 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
+let
+  unstable = import inputs.nixpkgs-unstable {
+    system = pkgs.stdenv.system;
+    config.allowUnfree = true;
+  };
+in
 {
-  home.packages = [ pkgs.claude-code ];
+  home.packages = [ unstable.claude-code ];
 }

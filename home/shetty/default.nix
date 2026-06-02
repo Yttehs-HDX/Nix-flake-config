@@ -68,6 +68,7 @@
     ../../modules/home/obs-studio.nix
     ../../modules/home/osu-lazer-bin.nix
     ../../modules/home/p7zip.nix
+    ../../modules/home/pi-coding-agent.nix
     ../../modules/home/pipes-rs.nix
     ../../modules/home/poppler-utils.nix
     ../../modules/home/qbittorrent.nix

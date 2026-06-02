@@ -6,5 +6,5 @@ let
   };
 in
 {
-  home.packages = [ unstable.codex ];
+  home.packages = [ unstable.pi-coding-agent ];
 }

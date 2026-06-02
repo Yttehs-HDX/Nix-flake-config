@@ -5,7 +5,6 @@
     ./common/audio.nix
     ./common/bluetooth.nix
     ./common/blueman.nix
-    ./common/fonts.nix
     ./common/gnome-keyring.nix
     ./common/portal.nix
     ./common/udisks2.nix
