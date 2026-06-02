@@ -39,15 +39,13 @@ home-manager switch --flake .
 
 | 输入 | 用途 |
 | --- | --- |
-| [nixpkgs](https://github.com/NixOS/nixpkgs) | 稳定包集合 (nixos-25.11) |
+| [nixpkgs](https://github.com/NixOS/nixpkgs) | 稳定包集合 (nixos-26.05) |
 | [nixpkgs-unstable](https://github.com/NixOS/nixpkgs) | 不稳定分支包集合 |
 | [home-manager](https://github.com/nix-community/home-manager) | Home Manager 模块与独立构建器 |
 | [nix-darwin](https://github.com/nix-darwin/nix-darwin) | macOS 系统构建器（暂未使用） |
 | [nixvim](https://github.com/nix-community/nixvim) | 声明式 Neovim 配置 |
 | [NUR](https://github.com/nix-community/NUR) | 社区包仓库 |
 | [Hexecute](https://github.com/ThatOtherAndrew/Hexecute) | 第三方包 |
-| [nix-openclaw](https://github.com/openclaw/nix-openclaw) | OpenClaw Home Manager 模块 |
-
 ## 致谢
 
 部分配置基于 [Sly-Harvey/NixOS](https://github.com/Sly-Harvey/NixOS)。

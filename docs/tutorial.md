@@ -49,7 +49,7 @@ home/<username>/
   home.homeDirectory = "/home/<username>";
 
   programs.home-manager.enable = true;
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 }
 ```
 
@@ -112,7 +112,7 @@ hosts/nixos/<hostname>/
 
   programs.zsh.enable = true;
   networking.hostName = "<hostname>";
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }
 ```
 

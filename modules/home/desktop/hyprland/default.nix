@@ -21,7 +21,7 @@
     ../common/screenshot.nix
     ../common/swappy.nix
     ../common/udiskie.nix
-    ../common/swww.nix
+    ../common/awww.nix
     ../common/waybar.nix
     ../common/wl-clipboard.nix
     ../common/xdg.nix

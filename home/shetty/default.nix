@@ -9,7 +9,7 @@
     ../../modules/home/tmux.nix
     ../../modules/home/btop.nix
     ../../modules/home/cava.nix
-    ../../modules/home/openclaw.nix
+    # ../../modules/home/openclaw.nix
     ../../modules/home/clash-verge-rev.nix
     ../../modules/home/bat.nix
     ../../modules/home/direnv.nix
@@ -72,7 +72,7 @@
     ../../modules/home/pipes-rs.nix
     ../../modules/home/poppler-utils.nix
     ../../modules/home/qbittorrent.nix
-    ../../modules/home/qq.nix
+    # ../../modules/home/qq.nix
     ../../modules/home/scrcpy.nix
     ../../modules/home/seahorse.nix
     ../../modules/home/taplo.nix
@@ -91,10 +91,12 @@
     ../../modules/home/zip.nix
   ];
 
-  home.username = "shetty";
-  home.homeDirectory = "/home/shetty";
+  home = {
+    username = "shetty";
+    homeDirectory = "/home/shetty";
+  };
 
   programs.home-manager.enable = true;
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 }

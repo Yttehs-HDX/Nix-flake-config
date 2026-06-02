@@ -4,12 +4,6 @@
   nixpkgs.config = {
     nvidia.acceptLicense = true;
     cudaSupport = true;
-    allowUnfreePredicate =
-      pkg:
-      let
-        name = lib.getName pkg;
-      in
-      lib.hasPrefix "cuda" name || lib.hasPrefix "nvidia" name;
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];

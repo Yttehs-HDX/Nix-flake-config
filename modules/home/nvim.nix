@@ -8,6 +8,8 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+
+    nixpkgs.useGlobalPackages = true;
     extraPackages = with inputs.nixpkgs.legacyPackages.x86_64-linux; [
       gcc
       clang
