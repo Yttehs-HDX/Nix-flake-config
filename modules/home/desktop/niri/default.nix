@@ -1,8 +1,6 @@
 {
   imports = [
     ./niri.nix
-    ./niri-idle.nix
-    ./niri-polkit.nix
     ../common/fonts.nix
     ../common/blueman-applet.nix
     ../common/brightnessctl.nix
