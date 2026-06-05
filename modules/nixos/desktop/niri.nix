@@ -13,11 +13,10 @@
     ./sddm.nix
   ];
 
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
-  };
+  programs.niri.enable = true;
+
+  # PAM for swaylock
+  security.pam.services.swaylock = { };
 
   # environment.systemPackages = with pkgs; [
   #   xdg-utils wl-clipboard grim slurp

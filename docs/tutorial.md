@@ -9,7 +9,7 @@
 ├── modules/
 │   ├── nixos/                 # NixOS 系统模块
 │   └── home/                  # Home Manager 模块（扁平结构）
-│       ├── desktop/           # 桌面环境（如 hyprland）
+│       ├── desktop/           # 桌面环境（如 niri）
 │       └── theme/             # 主题
 └── docs/                      # 文档
 ```
@@ -18,7 +18,7 @@
 
 `modules/home/` 下的所有 `.nix` 文件均为平铺结构，不区分 packages、programs、services。每个文件声明一个包或服务。
 
-Hyprland 相关的模块集中在 `modules/home/desktop/hyprland/`，由 `default.nix` 统一导入。
+Niri 相关的模块集中在 `modules/home/desktop/niri/`，由 `default.nix` 统一导入。
 
 ## 定义新用户
 
@@ -63,7 +63,7 @@ home/<username>/
 {
   imports = [
     ./default.nix
-    ../../modules/home/desktop/hyprland
+    ../../modules/home/desktop/niri
     ../../modules/home/theme/catppuccin-mocha
   ];
 }

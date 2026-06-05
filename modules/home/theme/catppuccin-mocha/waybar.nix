@@ -41,7 +41,7 @@ in
       color: @text;
     }
 
-    #hyprland,
+    #niri,
     #cava,
     #misc,
     #monitor,
@@ -54,7 +54,7 @@ in
       margin: 0 0.1rem;
     }
 
-    #hyprland,
+    #niri,
     #connection,
     #power {
       border-radius: 0.9rem;
@@ -67,7 +67,7 @@ in
       border-radius: 5rem;
     }
 
-    #hyprland   { border-color: @sky; }
+    #niri   { border-color: @sky; }
     #cava       { border-color: @pink;   color: @maroon; }
     #misc       { border-color: @blue; }
     #monitor    { border-color: @yellow; }

@@ -1,9 +1,8 @@
 {
   imports = [
-    ./hypridle.nix
-    ./hyprland.nix
-    ./hyprpicker.nix
-    ./hyprpolkitagent.nix
+    ./niri.nix
+    ./niri-idle.nix
+    ./niri-polkit.nix
     ../common/fonts.nix
     ../common/blueman-applet.nix
     ../common/brightnessctl.nix
