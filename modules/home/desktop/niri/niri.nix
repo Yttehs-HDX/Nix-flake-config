@@ -87,32 +87,54 @@ let
     spawn-at-startup "awww"
 
     // ── Keybindings ──────────────────────────────────────────────────────────
+    // Follows niri community conventions — primary nav via arrows + Home/End,
+    // with vim keys as secondary.
     binds {
         // ── Launch ───────────────────────────────────────────────────────────
-        Mod+Q { spawn "kitty"; }
-        Mod+R { spawn "rofi" "-show" "drun"; }
+        Mod+Return { spawn "kitty"; }
+        Mod+D { spawn "rofi" "-show" "drun"; }
         Mod+Escape { spawn "hexecute"; }
 
-        // ── Window management ────────────────────────────────────────────────
+        // ── Column & window management ───────────────────────────────────────
+        Mod+Q { close-window; }
         Mod+F { fullscreen-window; }
-        Mod+C { close-window; }
-        Mod+V { toggle-window-floating; }
-        Mod+M { quit; }
         Mod+Shift+F { maximize-column; }
+        Mod+M { maximize-column; }
+        Mod+C { center-column; }
+        Mod+R { switch-preset-column-width; }
+        Mod+V { toggle-window-floating; }
+        Mod+Shift+E { quit; }
+        Mod+Shift+Slash { show-hotkey-overlay; }
 
-        // ── Focus: vim keys ──────────────────────────────────────────────────
+        // ── Column ops (niri's scrollable-tiling paradigm) ───────────────────
+        Mod+Comma  { consume-or-expel-window-left; }
+        Mod+Period { consume-or-expel-window-right; }
+        Mod+Shift+Comma  { consume-window-into-column; }
+        Mod+Shift+Period { expel-window-from-column; }
+
+        // ── Focus: ribbon navigation ─────────────────────────────────────────
+        Mod+Left  { focus-column-left; }
+        Mod+Right { focus-column-right; }
+        Mod+Up    { focus-window-up; }
+        Mod+Down  { focus-window-down; }
+        Mod+Home  { focus-column-first; }
+        Mod+End   { focus-column-last; }
+
+        // ── Focus: vim keys (secondary) ──────────────────────────────────────
         Mod+H { focus-column-left; }
         Mod+L { focus-column-right; }
         Mod+K { focus-window-up; }
         Mod+J { focus-window-down; }
 
-        // ── Focus: arrow keys ────────────────────────────────────────────────
-        Mod+Left  { focus-column-left; }
-        Mod+Right { focus-column-right; }
-        Mod+Up    { focus-window-up; }
-        Mod+Down  { focus-window-down; }
+        // ── Move: ribbon reordering ──────────────────────────────────────────
+        Mod+Ctrl+Left  { move-column-left; }
+        Mod+Ctrl+Right { move-column-right; }
+        Mod+Ctrl+Up    { move-window-up; }
+        Mod+Ctrl+Down  { move-window-down; }
+        Mod+Ctrl+Home  { move-column-to-first; }
+        Mod+Ctrl+End   { move-column-to-last; }
 
-        // ── Move window: vim keys ────────────────────────────────────────────
+        // ── Move: vim keys (secondary) ───────────────────────────────────────
         Mod+Ctrl+H { move-column-left; }
         Mod+Ctrl+L { move-column-right; }
         Mod+Ctrl+K { move-window-up; }
