@@ -5,15 +5,6 @@
 }:
 
 let
-  mkWorkspaceBinds =
-    let
-      mkWs = n: ''
-        Mod+${toString n} { focus-workspace ${toString n}; }
-        Mod+Ctrl+${toString n} { move-window-to-workspace ${toString n}; }
-      '';
-    in
-    lib.concatMapStrings mkWs (lib.range 1 9);
-
   configKDL = ''
     // ── Input ────────────────────────────────────────────────────────────────
     input {
@@ -27,13 +18,6 @@ let
             dwt
         }
     }
-
-    // ── Output ───────────────────────────────────────────────────────────────
-    // Default monitor settings — adjust per-host as needed.
-    // output "eDP-1" {
-    //     mode "1920x1080@60"
-    //     variable-refresh-rate
-    // }
 
     prefer-no-csd
     hotkey-overlay
@@ -60,11 +44,11 @@ let
 
     // ── Layout ───────────────────────────────────────────────────────────────
     layout {
-        gaps 4
+        gaps 2
         center-focused-column "never"
         default-column-width { proportion 0.5; }
         border {
-            width 2
+            width 1
             active-color "#cba6f7"
             inactive-color "#45475a"
         }
@@ -78,7 +62,7 @@ let
 
     // ── Animations ───────────────────────────────────────────────────────────
     animations {
-        slowdown 3
+        slowdown 1
     }
 
     // ── Startup ──────────────────────────────────────────────────────────────
@@ -141,7 +125,24 @@ let
         Mod+Ctrl+J { move-window-down; }
 
         // ── Workspaces ───────────────────────────────────────────────────────
-    ${mkWorkspaceBinds}
+        Mod+1 { focus-workspace 1; }
+        Mod+Ctrl+1 { move-window-to-workspace 1; }
+        Mod+2 { focus-workspace 2; }
+        Mod+Ctrl+2 { move-window-to-workspace 2; }
+        Mod+3 { focus-workspace 3; }
+        Mod+Ctrl+3 { move-window-to-workspace 3; }
+        Mod+4 { focus-workspace 4; }
+        Mod+Ctrl+4 { move-window-to-workspace 4; }
+        Mod+5 { focus-workspace 5; }
+        Mod+Ctrl+5 { move-window-to-workspace 5; }
+        Mod+6 { focus-workspace 6; }
+        Mod+Ctrl+6 { move-window-to-workspace 6; }
+        Mod+7 { focus-workspace 7; }
+        Mod+Ctrl+7 { move-window-to-workspace 7; }
+        Mod+8 { focus-workspace 8; }
+        Mod+Ctrl+8 { move-window-to-workspace 8; }
+        Mod+9 { focus-workspace 9; }
+        Mod+Ctrl+9 { move-window-to-workspace 9; }
         Mod+0 { focus-workspace 10; }
         Mod+Ctrl+0 { move-window-to-workspace 10; }
 
