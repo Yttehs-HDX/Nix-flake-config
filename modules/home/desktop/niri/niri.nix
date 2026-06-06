@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   ...
 }:
 
@@ -88,7 +87,7 @@ let
         Mod+R { switch-preset-column-width; }
         Mod+V { toggle-window-floating; }
         Mod+Shift+E { quit; }
-        Mod+Shift+Slash { show-hotkey-overlay; }
+        Mod+F1 { show-hotkey-overlay; }
 
         // ── Column ops (niri's scrollable-tiling paradigm) ───────────────────
         Mod+Comma  { consume-or-expel-window-left; }

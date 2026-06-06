@@ -4,11 +4,12 @@ let
   screenshot = pkgs.writeShellApplication {
     name = "screenshot";
     runtimeInputs = with pkgs; [
-      grimblast
+      grim
+      slurp
       swappy
     ];
     text = ''
-      grimblast --freeze save area - | swappy -f -
+      grim -g "$(slurp)" - | swappy -f -
     '';
   };
 in

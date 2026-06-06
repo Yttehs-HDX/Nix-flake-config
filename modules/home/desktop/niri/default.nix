@@ -6,7 +6,7 @@
     ../common/brightnessctl.nix
     ../common/cliphist.nix
     ../common/gnome-keyring.nix
-    ../common/grimblast.nix
+    ../common/grim.nix
     ../common/network-manager-applet.nix
     ../common/rofi.nix
     ../common/swaylock.nix
