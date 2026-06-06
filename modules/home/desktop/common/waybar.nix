@@ -60,7 +60,7 @@
       };
 
       "niri/window" = {
-        format = "{title}";
+        format = "{app_id}";
         icon = true;
         icon-size = 15;
         separate-outputs = true;

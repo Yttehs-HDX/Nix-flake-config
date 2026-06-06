@@ -17,7 +17,7 @@
     ../common/playerctl.nix
     ../common/pulseaudio.nix
     ../common/rofimoji.nix
-    ../common/screenshot.nix
+
     ../common/swappy.nix
     ../common/udiskie.nix
     ../common/awww.nix
