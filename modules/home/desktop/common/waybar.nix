@@ -18,7 +18,7 @@
       margin-top = 5;
       margin-left = 3;
       margin-right = 3;
-      margin-bottom = 2;
+      margin-bottom = 0;
 
       modules-left = [
         "group/niri"

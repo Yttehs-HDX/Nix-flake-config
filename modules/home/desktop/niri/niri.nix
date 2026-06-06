@@ -4,6 +4,8 @@
 }:
 
 let
+  palette = import ../../theme/catppuccin-mocha/palette.nix;
+
   configKDL = ''
     // ── Input ────────────────────────────────────────────────────────────────
     input {
@@ -43,20 +45,38 @@ let
 
     // ── Layout ───────────────────────────────────────────────────────────────
     layout {
-        gaps 2
+        gaps 3
         center-focused-column "never"
-        default-column-width { proportion 0.5; }
+        default-column-width {
+            proportion 1.0;
+        }
+        focus-ring {
+            width 1
+            active-color "${palette.mauve}"
+            inactive-color "${palette.surface1}"
+        }
         border {
             width 1
-            active-color "#cba6f7"
-            inactive-color "#45475a"
+            active-color "${palette.mauve}"
+            inactive-color "${palette.surface1}"
         }
         struts {
-            left 0
-            right 0
-            top 0
-            bottom 1
+            left 3
+            right 3
+            top 5
+            bottom 5
         }
+    }
+
+    overview {
+        zoom 1.0
+        backdrop-color "${palette.base}"
+    }
+
+    window-rule {
+        match app-id=r#"."#
+        geometry-corner-radius 10
+        clip-to-geometry true
     }
 
     // ── Animations ───────────────────────────────────────────────────────────
@@ -81,13 +101,13 @@ let
         // ── Column & window management ───────────────────────────────────────
         Mod+Q { close-window; }
         Mod+F { fullscreen-window; }
-        Mod+Shift+F { maximize-column; }
         Mod+M { maximize-column; }
         Mod+C { center-column; }
+        Mod+O { toggle-overview; }
         Mod+R { switch-preset-column-width; }
         Mod+V { toggle-window-floating; }
         Mod+Shift+E { quit; }
-        Mod+F1 { show-hotkey-overlay; }
+        Mod+Shift+Slash { show-hotkey-overlay; }
 
         // ── Column ops (niri's scrollable-tiling paradigm) ───────────────────
         Mod+Comma  { consume-or-expel-window-left; }
@@ -175,11 +195,7 @@ let
   '';
 in
 {
-  home.packages = with pkgs; [
-    niri
-    xwayland-satellite
-    hyprpicker
-  ];
+  home.packages = with pkgs; [ niri ];
 
   xdg.configFile."niri/config.kdl".text = configKDL;
 }
