@@ -12,6 +12,7 @@
     ../common/network-manager-applet.nix
     ../common/rofi.nix
     ../common/swaylock.nix
+    ../common/swayidle.nix
     ../common/swaync.nix
     ../common/ocr.nix
     ../common/playerctl.nix
