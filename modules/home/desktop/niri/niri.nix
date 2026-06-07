@@ -80,13 +80,13 @@ let
         }
         focus-ring {
             width 1
-            active-color "${palette.mauve}"
-            inactive-color "${palette.surface1}"
+            active-color "${palette.lavender}"
+            inactive-color "${palette.pink}"
         }
         border {
             width 1
-            active-color "${palette.mauve}"
-            inactive-color "${palette.surface1}"
+            active-color "${palette.lavender}"
+            inactive-color "${palette.pink}"
             urgent-color "${palette.red}"
         }
         // Drop shadows for windows.
@@ -102,13 +102,13 @@ let
             hide-when-single-tab
             width 3
             gap 2
-            active-color "${palette.mauve}"
-            inactive-color "${palette.surface1}"
+            active-color "${palette.lavender}"
+            inactive-color "${palette.pink}"
             urgent-color "${palette.red}"
         }
         // Insert hint shown during interactive window moves.
         insert-hint {
-            color "${palette.mauve}80"
+            color "${palette.lavender}80"
         }
         struts {
             left 3
@@ -313,9 +313,6 @@ let
         Mod+0 { focus-workspace 10; }
         Mod+Ctrl+0 { move-window-to-workspace 10; }
 
-        // Switch back to the previous workspace.
-        Mod+Tab { focus-workspace-previous; }
-
         // Workspace up/down (alternative to numbered shortcuts).
         Mod+U { focus-workspace-down; }
         Mod+I { focus-workspace-up; }
@@ -356,10 +353,12 @@ let
         Print { screenshot; }
         Ctrl+Print { screenshot-screen; }
         Alt+Print { screenshot-window; }
+        Mod+Shift+S { screenshot; }
+        Mod+Ctrl+Shift+S { screenshot-screen; }
+        Mod+Alt+Shift+S { screenshot-window; }
 
         // ── Power ────────────────────────────────────────────────────────────
         Mod+Shift+P { power-off-monitors; }
-        Ctrl+Alt+Delete { quit; }
 
         // ── Keyboard shortcuts inhibit escape hatch ───────────────────────────
         Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
@@ -367,7 +366,6 @@ let
         // ── Utilities ────────────────────────────────────────────────────────
         Mod+W { spawn "sh" "-c" "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
         Mod+E { spawn "rofimoji" "--action" "copy" "--prompt" "emoji" "--use-icons"; }
-        Mod+Shift+S { screenshot; }
         Mod+Shift+T { spawn "ocr"; }
         Mod+Alt+L { spawn "swaylock"; }
         Mod+Alt+Delete { spawn "hyprpicker" "--autocopy" "--format=hex"; }
