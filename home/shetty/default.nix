@@ -95,7 +95,5 @@
     homeDirectory = "/home/shetty";
   };
 
-  programs.home-manager.enable = true;
-
   home.stateVersion = "26.05";
 }
