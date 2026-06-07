@@ -350,12 +350,12 @@ let
         xf86KbdBrightnessDown { spawn "brightnessctl" "-d" "*::kbd_backlight" "set" "33%-"; }
 
         // ── Screenshots ───────────────────────────────────────────────────────
-        Print { screenshot; }
-        Ctrl+Print { screenshot-screen; }
-        Alt+Print { screenshot-window; }
-        Mod+Shift+S { screenshot; }
-        Mod+Ctrl+Shift+S { screenshot-screen; }
-        Mod+Alt+Shift+S { screenshot-window; }
+        Print { screenshot show-pointer=false; }
+        Ctrl+Print { screenshot-screen show-pointer=false; }
+        Alt+Print { screenshot-window show-pointer=false; }
+        Mod+Shift+S { screenshot show-pointer=false; }
+        Mod+Ctrl+Shift+S { screenshot-screen show-pointer=false; }
+        Mod+Alt+Shift+S { screenshot-window show-pointer=false; }
 
         // ── Power ────────────────────────────────────────────────────────────
         Mod+Shift+P { power-off-monitors; }
