@@ -9,7 +9,7 @@
     ../../modules/home/tmux.nix
     ../../modules/home/btop.nix
     ../../modules/home/cava.nix
-    # ../../modules/home/openclaw.nix
+    ../../modules/home/openclaw.nix
     ../../modules/home/clash-verge-rev.nix
     ../../modules/home/bat.nix
     ../../modules/home/direnv.nix
