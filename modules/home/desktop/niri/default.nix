@@ -6,7 +6,6 @@
     ../common/brightnessctl.nix
     ../common/cliphist.nix
     ../common/gnome-keyring.nix
-    ../common/grim.nix
     ../common/xwayland-satellite.nix
     ../common/hyprpicker.nix
     ../common/network-manager-applet.nix
@@ -18,7 +17,6 @@
     ../common/playerctl.nix
     ../common/pulseaudio.nix
     ../common/rofimoji.nix
-
     ../common/swappy.nix
     ../common/udiskie.nix
     ../common/awww.nix

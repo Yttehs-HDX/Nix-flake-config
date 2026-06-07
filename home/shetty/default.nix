@@ -76,7 +76,6 @@
     ../../modules/home/scrcpy.nix
     ../../modules/home/seahorse.nix
     ../../modules/home/taplo.nix
-    ../../modules/home/tesseract.nix
     ../../modules/home/tgpt.nix
     ../../modules/home/tldr.nix
     ../../modules/home/translate-shell.nix
