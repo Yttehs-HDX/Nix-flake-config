@@ -1,27 +1,25 @@
 {
   imports = [
-    ./hypridle.nix
-    ./hyprland.nix
-    ./hyprpicker.nix
-    ./hyprpolkitagent.nix
+    ./niri.nix
     ../common/fonts.nix
     ../common/blueman-applet.nix
     ../common/brightnessctl.nix
     ../common/cliphist.nix
     ../common/gnome-keyring.nix
-    ../common/grimblast.nix
+    ../common/xwayland-satellite.nix
+    ../common/hyprpicker.nix
     ../common/network-manager-applet.nix
     ../common/rofi.nix
     ../common/swaylock.nix
+    ../common/swayidle.nix
     ../common/swaync.nix
     ../common/ocr.nix
     ../common/playerctl.nix
     ../common/pulseaudio.nix
     ../common/rofimoji.nix
-    ../common/screenshot.nix
     ../common/swappy.nix
     ../common/udiskie.nix
-    ../common/swww.nix
+    ../common/awww.nix
     ../common/waybar.nix
     ../common/wl-clipboard.nix
     ../common/xdg.nix

@@ -8,7 +8,6 @@
     ./waybar.nix
     ./rofi.nix
     ./swaync.nix
-    ./hyprland.nix
     ./swaylock.nix
     ./btop.nix
     ./cava.nix

@@ -72,11 +72,10 @@
     ../../modules/home/pipes-rs.nix
     ../../modules/home/poppler-utils.nix
     ../../modules/home/qbittorrent.nix
-    ../../modules/home/qq.nix
+    # ../../modules/home/qq.nix
     ../../modules/home/scrcpy.nix
     ../../modules/home/seahorse.nix
     ../../modules/home/taplo.nix
-    ../../modules/home/tesseract.nix
     ../../modules/home/tgpt.nix
     ../../modules/home/tldr.nix
     ../../modules/home/translate-shell.nix
@@ -91,10 +90,10 @@
     ../../modules/home/zip.nix
   ];
 
-  home.username = "shetty";
-  home.homeDirectory = "/home/shetty";
+  home = {
+    username = "shetty";
+    homeDirectory = "/home/shetty";
+  };
 
-  programs.home-manager.enable = true;
-
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 }

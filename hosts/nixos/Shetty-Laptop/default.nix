@@ -10,7 +10,6 @@
     ./home.nix
     ./locale.nix
     ./users.nix
-
     ../../../modules/nixos/nix.nix
     ../../../modules/nixos/networking.nix
     ../../../modules/nixos/networkmanager.nix
@@ -31,5 +30,5 @@
 
   networking.hostName = "Shetty-Laptop";
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }

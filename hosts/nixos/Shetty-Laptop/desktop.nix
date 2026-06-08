@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  imports = [ ../../../modules/nixos/desktop/hyprland.nix ];
+  imports = [ ../../../modules/nixos/desktop/niri.nix ];
 }

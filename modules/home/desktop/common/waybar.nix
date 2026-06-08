@@ -3,7 +3,7 @@
 {
   programs.waybar = {
     enable = true;
-    systemd.enable = true;
+    systemd.enable = false;
 
     settings.main = {
       layer = "top";
@@ -18,10 +18,10 @@
       margin-top = 5;
       margin-left = 3;
       margin-right = 3;
-      margin-bottom = 2;
+      margin-bottom = 0;
 
       modules-left = [
-        "group/hyprland"
+        "group/niri"
         "cava"
       ];
       modules-center = [ "group/misc" ];
@@ -32,18 +32,18 @@
         "group/power"
       ];
 
-      "group/hyprland" = {
+      "group/niri" = {
         orientation = "horizontal";
         modules = [
-          "hyprland/workspaces"
-          "hyprland/window"
+          "niri/workspaces"
+          "niri/window"
         ];
       };
 
-      "hyprland/workspaces" = {
-        disable-scroll = true;
+      "niri/workspaces" = {
+        disable-click = false;
         all-outputs = true;
-        active-only = false;
+        current-only = false;
         format = "{icon}";
         format-icons = {
           "1" = "壱";
@@ -57,23 +57,13 @@
           "9" = "玖";
           "10" = "拾";
         };
-        on-click = "activate";
-        persistent-workspaces = {
-          "*" = [
-            1
-            2
-            3
-            4
-            5
-            6
-          ];
-        };
       };
 
-      "hyprland/window" = {
-        format = "{class}";
+      "niri/window" = {
+        format = "{app_id}";
         icon = true;
         icon-size = 15;
+        separate-outputs = true;
       };
 
       cava = {

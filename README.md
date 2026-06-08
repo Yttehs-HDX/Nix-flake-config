@@ -40,15 +40,13 @@ home-manager switch --flake .
 
 | Input | Purpose |
 | --- | --- |
-| [nixpkgs](https://github.com/NixOS/nixpkgs) | Stable package set (nixos-25.11) |
+| [nixpkgs](https://github.com/NixOS/nixpkgs) | Stable package set (nixos-26.05) |
 | [nixpkgs-unstable](https://github.com/NixOS/nixpkgs) | Unstable package set for selected packages |
 | [home-manager](https://github.com/nix-community/home-manager) | Home Manager modules and standalone builder |
 | [nix-darwin](https://github.com/nix-darwin/nix-darwin) | macOS system builder (currently unused) |
 | [nixvim](https://github.com/nix-community/nixvim) | Declarative Neovim configuration |
 | [NUR](https://github.com/nix-community/NUR) | Community package repository |
 | [Hexecute](https://github.com/ThatOtherAndrew/Hexecute) | Third-party package |
-| [nix-openclaw](https://github.com/openclaw/nix-openclaw) | OpenClaw Home Manager module |
-
 ## Acknowledgements
 
 Some configurations are based on [Sly-Harvey/NixOS](https://github.com/Sly-Harvey/NixOS).

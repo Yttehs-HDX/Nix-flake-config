@@ -2,16 +2,16 @@
   description = "Shetty's Nix flake config";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -25,19 +25,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    openclaw = {
-      url = "github:openclaw/nix-openclaw/e2ea91056fdd0836bef96326a2b687277dbe3e1c";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+      url = "github:nix-community/nixvim/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
     inputs@{ nixpkgs, home-manager, ... }:
+
     let
       system = "x86_64-linux";
 

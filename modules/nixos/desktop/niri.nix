@@ -5,17 +5,18 @@
     ./common/audio.nix
     ./common/bluetooth.nix
     ./common/blueman.nix
-    ./common/gnome-keyring.nix
     ./common/portal.nix
     ./common/udisks2.nix
     ./common/polkit.nix
     ./common/dbus.nix
     ./sddm.nix
+    ../theme/catppuccin-mocha
   ];
 
-  programs.hyprland.enable = true;
+  programs.niri.enable = true;
 
-  # environment.systemPackages = with pkgs; [
-  #   xdg-utils wl-clipboard grim slurp
-  # ];
+  security.pam.services = {
+    niri = { };
+    swaylock = { };
+  };
 }

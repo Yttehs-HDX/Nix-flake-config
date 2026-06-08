@@ -3,10 +3,7 @@
 {
   environment.systemPackages = [ pkgs.asusctl ];
 
-  services.asusd = {
-    enable = true;
-    enableUserService = true;
-  };
+  services.asusd.enable = true;
 
   programs.rog-control-center = {
     enable = true;
