@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 let
   palette = import ../../theme/catppuccin-mocha/palette.nix;
