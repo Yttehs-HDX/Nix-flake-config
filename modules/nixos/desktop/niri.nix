@@ -10,6 +10,7 @@
     ./common/polkit.nix
     ./common/dbus.nix
     ./sddm.nix
+    ../theme/catppuccin-mocha
   ];
 
   programs.niri.enable = true;
