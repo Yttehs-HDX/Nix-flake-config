@@ -367,7 +367,7 @@ let
         Mod+W { spawn "sh" "-c" "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
         Mod+E { spawn "rofimoji" "--action" "copy" "--prompt" "emoji" "--use-icons"; }
         Mod+Shift+T { spawn "ocr"; }
-        Mod+Alt+L { spawn "swaylock -f"; }
+        Mod+Alt+L { spawn "swaylock"; }
         Mod+Alt+Delete { spawn "hyprpicker" "--autocopy" "--format=hex"; }
     }
   '';
