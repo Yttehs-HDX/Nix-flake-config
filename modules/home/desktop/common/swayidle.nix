@@ -23,23 +23,11 @@ in
       }
     ];
 
-    events = [
-      {
-        event = "before-sleep";
-        command = screenLockCmd;
-      }
-      {
-        event = "lock";
-        command = screenLockCmd;
-      }
-      {
-        event = "unlock";
-        command = monitorOnCmd;
-      }
-      {
-        event = "after-resume";
-        command = monitorOnCmd;
-      }
-    ];
+    events = {
+      before-sleep = screenLockCmd;
+      lock = screenLockCmd;
+      unlock = monitorOnCmd;
+      after-resume = monitorOnCmd;
+    };
   };
 }
