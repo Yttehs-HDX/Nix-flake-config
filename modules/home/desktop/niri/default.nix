@@ -8,6 +8,7 @@
     ../common/gnome-keyring.nix
     ../common/xwayland-satellite.nix
     ../common/hyprpicker.nix
+    ../common/nautilus.nix
     ../common/network-manager-applet.nix
     ../common/rofi.nix
     ../common/swaylock.nix

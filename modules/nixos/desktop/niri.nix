@@ -6,6 +6,7 @@
     ./common/bluetooth.nix
     ./common/blueman.nix
     ./common/portal.nix
+    ./common/sushi.nix
     ./common/udisks2.nix
     ./common/polkit.nix
     ./common/dbus.nix
