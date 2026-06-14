@@ -72,7 +72,7 @@
     ../../modules/home/pipes-rs.nix
     ../../modules/home/poppler-utils.nix
     ../../modules/home/qbittorrent.nix
-    # ../../modules/home/qq.nix
+    ../../modules/home/qq.nix
     ../../modules/home/scrcpy.nix
     ../../modules/home/seahorse.nix
     ../../modules/home/taplo.nix
