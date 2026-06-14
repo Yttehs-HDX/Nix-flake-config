@@ -14,7 +14,7 @@
     ../common/swaylock.nix
     ../common/swayidle.nix
     ../common/swaync.nix
-    ../common/ocr.nix
+    ../common/custom-ocr.nix
     ../common/playerctl.nix
     ../common/pulseaudio.nix
     ../common/rofimoji.nix

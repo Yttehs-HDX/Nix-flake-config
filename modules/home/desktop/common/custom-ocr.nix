@@ -13,19 +13,23 @@ let
     ];
     text = ''
       set -e
-      img=$(mktemp /tmp/ocr_XXXXXX.png)
+      img=$(mktemp --suffix=.png /tmp/ocr_XXXXXX)
       txt=$(mktemp /tmp/ocr_XXXXXX)
       trap 'rm -f "$img" "$txt" "$txt.txt"' EXIT
-      grim -g "$(slurp)" "$img"
+
+      region=$(slurp) || exit 0
+      grim -g "$region" "$img"
+
       tesseract "$img" "$txt" -l chi_sim+eng+jpn --psm 6
-      raw=$(cat "$txt.txt")
-      cleaned=$(printf "%s" "$raw" \
+      raw=$(cat "$txt.txt" 2>/dev/null || true)
+
+      cleaned=$(printf '%s' "$raw" \
           | tr -d '\r' \
-          | sed ':a;N;$!ba;s/\n/ /g' \
-          | sed 's/[[:space:]]\+/ /g' \
-          | sed 's/^[ \t]*//;s/[ \t]*$//' \
+          | paste -s -d ' ' - \
+          | sed 's/[[:space:]]\+/ /g; s/^ //; s/ $//' \
       )
-      echo -n "$cleaned" | wl-copy
+
+      printf '%s' "$cleaned" | wl-copy
     '';
   };
 in
