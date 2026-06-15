@@ -15,6 +15,7 @@
     config = {
       "activation_time" = "0.5";
       "sys_numlock_enables_numpad" = "1";
+      "enabled_touchpad_pointer" = "0";
     };
   };
 }
