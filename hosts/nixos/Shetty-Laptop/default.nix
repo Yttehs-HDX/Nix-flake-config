@@ -27,6 +27,7 @@
     ../../../modules/nixos/clash-verge-rev.nix
     ../../../modules/nixos/neovim.nix
     ../../../modules/nixos/zsh.nix
+    ../../../modules/nixos/cloudflare-warp.nix
   ];
 
   networking.hostName = "Shetty-Laptop";
