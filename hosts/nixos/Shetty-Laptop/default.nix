@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./asus-numberpad.nix
     ./boot.nix
     ./desktop.nix
     ./firewall.nix

@@ -29,6 +29,11 @@
       url = "github:nix-community/nixvim/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    asus-numberpad-driver = {
+      url = "github:asus-linux-drivers/asus-numberpad-driver/v7.0.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -48,7 +53,10 @@
 
         specialArgs = { inherit inputs; };
 
-        modules = [ ./hosts/nixos/Shetty-Laptop ];
+        modules = [
+          ./hosts/nixos/Shetty-Laptop
+          inputs.asus-numberpad-driver.nixosModules.default
+        ];
       };
 
       homeConfigurations."shetty@Shetty-Laptop" = home-manager.lib.homeManagerConfiguration {

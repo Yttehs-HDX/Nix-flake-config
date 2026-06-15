@@ -19,6 +19,9 @@
       "audio"
       "uucp"
       "dialout"
+      "input"
+      "i2c"
+      "uinput"
     ];
   };
 }
