@@ -350,9 +350,7 @@ let
         Print { screenshot show-pointer=false; }
         Ctrl+Print { screenshot-screen show-pointer=false; }
         Alt+Print { screenshot-window show-pointer=false; }
-        Mod+Shift+S { screenshot show-pointer=false; }
-        Mod+Ctrl+Shift+S { screenshot-screen show-pointer=false; }
-        Mod+Alt+Shift+S { screenshot-window show-pointer=false; }
+        Mod+Shift+S { spawn "screenshot"; }
 
         // ── Power ────────────────────────────────────────────────────────────
         Mod+Shift+P { power-off-monitors; }
