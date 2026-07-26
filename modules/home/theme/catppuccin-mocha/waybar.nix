@@ -86,7 +86,7 @@ in
     #bluetooth,
     #custom-hexecute,
     #tray,
-    #idle_inhibitor,
+    #custom-idle-inhibitor,
     #battery {
       padding: 0 0.35rem;
       margin: 0;
@@ -101,7 +101,7 @@ in
     #network         { color: @lavender; }
     #bluetooth       { color: @mauve; }
     #custom-hexecute { color: @blue; }
-    #idle_inhibitor  { color: @teal; }
+    #custom-idle-inhibitor { color: @teal; }
     #battery         { color: @green; }
 
     #workspaces {

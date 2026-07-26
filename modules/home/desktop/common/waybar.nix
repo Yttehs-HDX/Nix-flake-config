@@ -1,6 +1,51 @@
 { lib, pkgs, ... }:
 
+let
+  idleInhibitorService = "waybar-idle-inhibitor.service";
+  idleInhibitor = pkgs.writeShellApplication {
+    name = "waybar-idle-inhibitor";
+    runtimeInputs = [ pkgs.systemd ];
+    text = ''
+      case "''${1:-status}" in
+        toggle)
+          if systemctl --user is-active --quiet ${idleInhibitorService}; then
+            systemctl --user stop ${idleInhibitorService}
+          else
+            systemctl --user start ${idleInhibitorService}
+          fi
+          ;;
+        status)
+          if systemctl --user is-active --quiet ${idleInhibitorService}; then
+            printf '%s\n' '{"text":" ","tooltip":"Keep awake","class":"activated"}'
+          else
+            printf '%s\n' '{"text":"󰤄","tooltip":"Allow idle","class":"deactivated"}'
+          fi
+          ;;
+        *)
+          printf 'usage: waybar-idle-inhibitor {status|toggle}\n' >&2
+          exit 2
+          ;;
+      esac
+    '';
+  };
+in
 {
+  systemd.user.services.waybar-idle-inhibitor = {
+    Unit = {
+      Description = "Waybar idle inhibitor";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service.ExecStart = ''
+      ${pkgs.systemd}/bin/systemd-inhibit \
+        --what=idle \
+        --who=Waybar \
+        --why="Waybar caffeine mode" \
+        --mode=block \
+        ${pkgs.coreutils}/bin/sleep infinity
+    '';
+  };
+
   programs.waybar = {
     enable = true;
     systemd.enable = false;
@@ -234,17 +279,16 @@
       "group/power" = {
         orientation = "inherit";
         modules = [
-          "idle_inhibitor"
+          "custom/idle-inhibitor"
           "battery"
         ];
       };
 
-      idle_inhibitor = {
-        format = "{icon}";
-        format-icons = {
-          activated = " ";
-          deactivated = "󰤄";
-        };
+      "custom/idle-inhibitor" = {
+        exec = "${idleInhibitor}/bin/waybar-idle-inhibitor status";
+        on-click = "${idleInhibitor}/bin/waybar-idle-inhibitor toggle";
+        return-type = "json";
+        interval = 1;
       };
 
       battery = {
